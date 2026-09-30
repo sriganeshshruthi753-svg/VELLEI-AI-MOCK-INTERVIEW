@@ -55,9 +55,10 @@
     label {
       display: block;
       font-weight: bold;
-      margin-bottom: 8px;
+      margin: 16px 0 8px;
     }
 
+    input,
     select,
     textarea {
       width: 100%;
@@ -65,11 +66,16 @@
       border: 1px solid #d1d5db;
       border-radius: 10px;
       font-size: 16px;
+      font-family: inherit;
     }
 
     textarea {
       min-height: 180px;
       resize: vertical;
+    }
+
+    #jobDescription {
+      min-height: 150px;
     }
 
     button {
@@ -192,7 +198,6 @@
       border-radius: 15px;
       font-size: 12px;
       font-weight: bold;
-      margin-bottom: 7px;
       background: #f3f4f6;
     }
 
@@ -234,10 +239,24 @@
       margin-bottom: 20px;
     }
 
+    .context-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
     .button-row {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+    }
+
+    .small-text {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     @media (max-width: 700px) {
@@ -256,13 +275,14 @@
 
 <header>
   <h1>VELLEI AI Mock Interview</h1>
-  <p>AI-powered adaptive interview demo</p>
+  <p>AI-powered adaptive interview platform</p>
 </header>
 
 <div class="container">
 
   <!-- SETUP -->
   <section id="setupScreen" class="card">
+
     <h2>Start Your Interview</h2>
 
     <div id="resumeBox" class="resume-box hidden">
@@ -271,11 +291,21 @@
 
       <div class="button-row">
         <button onclick="resumeInterview()">Resume Interview</button>
-        <button class="secondary" onclick="clearSavedSession()">Discard & Start New</button>
+        <button class="secondary" onclick="clearSavedSession()">
+          Discard & Start New
+        </button>
       </div>
     </div>
 
-    <label for="role">Select Job Role</label>
+    <label for="candidateName">Candidate Name</label>
+
+    <input
+      id="candidateName"
+      type="text"
+      placeholder="Enter your name"
+    >
+
+    <label for="role">Job Role</label>
 
     <select id="role">
       <option value="">Select a role</option>
@@ -286,9 +316,37 @@
       <option value="Backend Developer">Backend Developer</option>
     </select>
 
-    <br><br>
+    <label for="experienceLevel">Experience Level</label>
 
-    <button onclick="startInterview()">Start Interview</button>
+    <select id="experienceLevel">
+      <option value="">Select experience level</option>
+      <option value="Fresher">Fresher</option>
+      <option value="Entry Level">Entry Level</option>
+      <option value="Junior">Junior</option>
+      <option value="Mid Level">Mid Level</option>
+      <option value="Senior">Senior</option>
+    </select>
+
+    <label for="jobDescription">
+      Job Description
+    </label>
+
+    <textarea
+      id="jobDescription"
+      placeholder="Paste the job description here. This helps the AI evaluate answers against the role requirements."
+    ></textarea>
+
+    <p class="small-text">
+      Job description is optional. If provided, the AI will use it as
+      additional interview context.
+    </p>
+
+    <br>
+
+    <button onclick="startInterview()">
+      Start Interview
+    </button>
+
   </section>
 
 
@@ -296,6 +354,14 @@
   <section id="interviewScreen" class="card hidden">
 
     <div class="progress" id="progress"></div>
+
+    <div class="context-box">
+      <strong id="candidateDisplay"></strong>
+      <br>
+      <span id="roleDisplay"></span>
+      <br>
+      <span id="experienceDisplay"></span>
+    </div>
 
     <div class="badges">
       <span class="badge" id="competencyBadge"></span>
@@ -328,6 +394,8 @@
     <div class="card">
       <h2>Interview Report</h2>
 
+      <div id="candidateReportInfo"></div>
+
       <div class="score" id="overallScore">--</div>
 
       <div id="summary"></div>
@@ -336,7 +404,6 @@
 
     <div class="card report-section">
       <h3>Performance Breakdown</h3>
-
       <div class="score-grid" id="scoreBreakdown"></div>
     </div>
 
@@ -384,7 +451,9 @@
 
 
     <div class="card">
-      <button onclick="startNewInterview()">Start New Interview</button>
+      <button onclick="startNewInterview()">
+        Start New Interview
+      </button>
     </div>
 
   </section>
@@ -394,34 +463,48 @@
 
 <script>
 
-const STORAGE_KEY = "vellei_mock_interview_session_v1";
+/* =========================================================
+   STORAGE
+========================================================= */
 
+const STORAGE_KEY =
+  "vellei_mock_interview_session_v2";
+
+
+/* =========================================================
+   QUESTION BANK
+========================================================= */
 
 const questionBank = {
 
   "Python Developer": [
     {
-      question: "Tell me about yourself and your technical background.",
+      question:
+        "Tell me about yourself and your technical background.",
       competency: "Background",
       type: "Behavioral"
     },
     {
-      question: "Explain your experience working with Python.",
+      question:
+        "Explain your experience working with Python.",
       competency: "Python",
       type: "Technical"
     },
     {
-      question: "What is the difference between a list, tuple, and set in Python?",
+      question:
+        "What is the difference between a list, tuple, and set in Python?",
       competency: "Python Fundamentals",
       type: "Technical"
     },
     {
-      question: "Tell me about a technical project where you used Python.",
+      question:
+        "Tell me about a technical project where you used Python.",
       competency: "Projects",
       type: "Project"
     },
     {
-      question: "How would you design a backend API for an AI application?",
+      question:
+        "How would you design a backend API for an AI application?",
       competency: "Backend Architecture",
       type: "System Design"
     }
@@ -429,27 +512,32 @@ const questionBank = {
 
   "Data Scientist": [
     {
-      question: "Tell me about your data science background.",
+      question:
+        "Tell me about your data science background.",
       competency: "Background",
       type: "Behavioral"
     },
     {
-      question: "Describe a machine learning project you worked on.",
+      question:
+        "Describe a machine learning project you worked on.",
       competency: "Machine Learning",
       type: "Project"
     },
     {
-      question: "How would you handle missing data in a dataset?",
+      question:
+        "How would you handle missing data in a dataset?",
       competency: "Data Processing",
       type: "Technical"
     },
     {
-      question: "How would you evaluate a classification model?",
+      question:
+        "How would you evaluate a classification model?",
       competency: "Model Evaluation",
       type: "Technical"
     },
     {
-      question: "How would you explain an ML result to a non-technical stakeholder?",
+      question:
+        "How would you explain an ML result to a non-technical stakeholder?",
       competency: "Communication",
       type: "Situational"
     }
@@ -457,27 +545,32 @@ const questionBank = {
 
   "ML Engineer": [
     {
-      question: "Tell me about your machine learning engineering experience.",
+      question:
+        "Tell me about your machine learning engineering experience.",
       competency: "Background",
       type: "Behavioral"
     },
     {
-      question: "Describe a machine learning model you implemented.",
+      question:
+        "Describe a machine learning model you implemented.",
       competency: "Machine Learning",
       type: "Project"
     },
     {
-      question: "What is the difference between training and inference?",
+      question:
+        "What is the difference between training and inference?",
       competency: "ML Fundamentals",
       type: "Technical"
     },
     {
-      question: "How would you deploy an ML model to production?",
+      question:
+        "How would you deploy an ML model to production?",
       competency: "Deployment",
       type: "System Design"
     },
     {
-      question: "How would you monitor a machine learning system in production?",
+      question:
+        "How would you monitor a machine learning system in production?",
       competency: "Monitoring",
       type: "System Design"
     }
@@ -485,27 +578,32 @@ const questionBank = {
 
   "GenAI Engineer": [
     {
-      question: "Tell me about your Generative AI experience.",
+      question:
+        "Tell me about your Generative AI experience.",
       competency: "GenAI Background",
       type: "Behavioral"
     },
     {
-      question: "Explain the high-level architecture of an LLM application.",
+      question:
+        "Explain the high-level architecture of an LLM application.",
       competency: "LLM Architecture",
       type: "Technical"
     },
     {
-      question: "What is Retrieval Augmented Generation and why is it useful?",
+      question:
+        "What is Retrieval Augmented Generation and why is it useful?",
       competency: "RAG",
       type: "Technical"
     },
     {
-      question: "Describe a Generative AI project you worked on.",
+      question:
+        "Describe a Generative AI project you worked on.",
       competency: "GenAI Projects",
       type: "Project"
     },
     {
-      question: "How would you reduce hallucinations in a GenAI application?",
+      question:
+        "How would you reduce hallucinations in a GenAI application?",
       competency: "Reliability",
       type: "System Design"
     }
@@ -513,27 +611,32 @@ const questionBank = {
 
   "Backend Developer": [
     {
-      question: "Tell me about your backend development experience.",
+      question:
+        "Tell me about your backend development experience.",
       competency: "Background",
       type: "Behavioral"
     },
     {
-      question: "What is a REST API?",
+      question:
+        "What is a REST API?",
       competency: "API Fundamentals",
       type: "Technical"
     },
     {
-      question: "How would you design a scalable backend service?",
+      question:
+        "How would you design a scalable backend service?",
       competency: "Scalability",
       type: "System Design"
     },
     {
-      question: "How do you handle errors in backend applications?",
+      question:
+        "How do you handle errors in backend applications?",
       competency: "Error Handling",
       type: "Technical"
     },
     {
-      question: "Tell me about an important backend project you worked on.",
+      question:
+        "Tell me about an important backend project you worked on.",
       competency: "Projects",
       type: "Project"
     }
@@ -542,21 +645,40 @@ const questionBank = {
 };
 
 
+/* =========================================================
+   STATE
+========================================================= */
+
 let state = {
+
+  candidateName: "",
+
   role: "",
+
+  experienceLevel: "",
+
+  jobDescription: "",
+
   currentQuestion: 0,
+
   questions: [],
+
   answers: [],
+
   evaluations: [],
+
   followupActive: false,
+
   followupQuestion: "",
+
   originalQuestion: null
+
 };
 
 
-/* =========================
-   STORAGE
-========================= */
+/* =========================================================
+   STORAGE FUNCTIONS
+========================================================= */
 
 function saveSession() {
 
@@ -569,7 +691,10 @@ function saveSession() {
 
   } catch (error) {
 
-    console.error("Could not save session:", error);
+    console.error(
+      "Could not save session:",
+      error
+    );
 
   }
 
@@ -580,7 +705,8 @@ function loadSession() {
 
   try {
 
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved =
+      localStorage.getItem(STORAGE_KEY);
 
     if (!saved) {
       return null;
@@ -590,7 +716,11 @@ function loadSession() {
 
   } catch (error) {
 
-    console.error("Could not load session:", error);
+    console.error(
+      "Could not load session:",
+      error
+    );
+
     return null;
 
   }
@@ -603,19 +733,42 @@ function clearSavedSession() {
   localStorage.removeItem(STORAGE_KEY);
 
   state = {
+
+    candidateName: "",
+
     role: "",
+
+    experienceLevel: "",
+
+    jobDescription: "",
+
     currentQuestion: 0,
+
     questions: [],
+
     answers: [],
+
     evaluations: [],
+
     followupActive: false,
+
     followupQuestion: "",
+
     originalQuestion: null
+
   };
 
-  document.getElementById("resumeBox").classList.add("hidden");
+  document
+    .getElementById("resumeBox")
+    .classList.add("hidden");
+
+  document.getElementById("candidateName").value = "";
 
   document.getElementById("role").value = "";
+
+  document.getElementById("experienceLevel").value = "";
+
+  document.getElementById("jobDescription").value = "";
 
 }
 
@@ -624,21 +777,37 @@ function checkSavedSession() {
 
   const saved = loadSession();
 
-  if (!saved || !saved.role || !saved.questions?.length) {
+  if (
+    !saved ||
+    !saved.role ||
+    !saved.questions ||
+    !saved.questions.length
+  ) {
+
     return;
+
   }
+
 
   if (
-    saved.currentQuestion >= saved.questions.length &&
-    saved.evaluations.length > 0
+    saved.currentQuestion >=
+    saved.questions.length
   ) {
+
     return;
+
   }
 
-  document.getElementById("resumeBox").classList.remove("hidden");
+
+  document
+    .getElementById("resumeBox")
+    .classList.remove("hidden");
+
 
   document.getElementById("resumeText").textContent =
-    `${saved.role} interview — Question ${Math.min(
+    `${saved.candidateName || "Candidate"} — ${saved.role} — ` +
+    `${saved.experienceLevel || "Experience not specified"} — ` +
+    `Question ${Math.min(
       saved.currentQuestion + 1,
       saved.questions.length
     )} of ${saved.questions.length}.`;
@@ -646,36 +815,9 @@ function checkSavedSession() {
 }
 
 
-function resumeInterview() {
-
-  const saved = loadSession();
-
-  if (!saved) {
-    return;
-  }
-
-  state = saved;
-
-  document.getElementById("role").value = state.role;
-
-  showScreen("interviewScreen");
-
-  if (state.followupActive) {
-
-    renderFollowup();
-
-  } else {
-
-    renderQuestion();
-
-  }
-
-}
-
-
-/* =========================
-   UI
-========================= */
+/* =========================================================
+   SCREEN MANAGEMENT
+========================================================= */
 
 function showScreen(screenId) {
 
@@ -691,6 +833,7 @@ function showScreen(screenId) {
     .getElementById("reportScreen")
     .classList.add("hidden");
 
+
   document
     .getElementById(screenId)
     .classList.remove("hidden");
@@ -698,30 +841,77 @@ function showScreen(screenId) {
 }
 
 
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
 function escapeHTML(value) {
 
-  if (value === null || value === undefined) {
+  if (
+    value === null ||
+    value === undefined
+  ) {
+
     return "";
+
   }
 
+
   return String(value)
+
     .replaceAll("&", "&amp;")
+
     .replaceAll("<", "&lt;")
+
     .replaceAll(">", "&gt;")
+
     .replaceAll('"', "&quot;")
+
     .replaceAll("'", "&#039;");
 
 }
 
 
-/* =========================
+/* =========================================================
    START INTERVIEW
-========================= */
+========================================================= */
 
 function startInterview() {
 
+  const candidateName =
+    document
+      .getElementById("candidateName")
+      .value
+      .trim();
+
+
   const role =
-    document.getElementById("role").value;
+    document
+      .getElementById("role")
+      .value;
+
+
+  const experienceLevel =
+    document
+      .getElementById("experienceLevel")
+      .value;
+
+
+  const jobDescription =
+    document
+      .getElementById("jobDescription")
+      .value
+      .trim();
+
+
+  if (!candidateName) {
+
+    alert("Please enter your name.");
+
+    return;
+
+  }
+
 
   if (!role) {
 
@@ -731,34 +921,155 @@ function startInterview() {
 
   }
 
+
+  if (!experienceLevel) {
+
+    alert("Please select your experience level.");
+
+    return;
+
+  }
+
+
   state = {
-    role: role,
+
+    candidateName,
+
+    role,
+
+    experienceLevel,
+
+    jobDescription,
+
     currentQuestion: 0,
-    questions: questionBank[role],
+
+    questions:
+      questionBank[role].map(item => ({
+        ...item
+      })),
+
     answers: [],
+
     evaluations: [],
+
     followupActive: false,
+
     followupQuestion: "",
+
     originalQuestion: null
+
   };
+
 
   saveSession();
 
+
   showScreen("interviewScreen");
+
+  renderCandidateInfo();
 
   renderQuestion();
 
 }
 
 
-/* =========================
+/* =========================================================
+   RESUME
+========================================================= */
+
+function resumeInterview() {
+
+  const saved = loadSession();
+
+  if (!saved) {
+
+    alert("No saved interview found.");
+
+    return;
+
+  }
+
+
+  state = saved;
+
+
+  document
+    .getElementById("candidateName")
+    .value =
+      state.candidateName || "";
+
+
+  document
+    .getElementById("role")
+    .value =
+      state.role || "";
+
+
+  document
+    .getElementById("experienceLevel")
+    .value =
+      state.experienceLevel || "";
+
+
+  document
+    .getElementById("jobDescription")
+    .value =
+      state.jobDescription || "";
+
+
+  showScreen("interviewScreen");
+
+  renderCandidateInfo();
+
+
+  if (state.followupActive) {
+
+    renderFollowup();
+
+  } else {
+
+    renderQuestion();
+
+  }
+
+}
+
+
+/* =========================================================
+   CANDIDATE INFO
+========================================================= */
+
+function renderCandidateInfo() {
+
+  document
+    .getElementById("candidateDisplay")
+    .textContent =
+      `Candidate: ${state.candidateName || "Candidate"}`;
+
+
+  document
+    .getElementById("roleDisplay")
+    .textContent =
+      `Role: ${state.role}`;
+
+
+  document
+    .getElementById("experienceDisplay")
+    .textContent =
+      `Experience: ${state.experienceLevel}`;
+
+}
+
+
+/* =========================================================
    QUESTION RENDERING
-========================= */
+========================================================= */
 
 function renderQuestion() {
 
   const item =
     state.questions[state.currentQuestion];
+
 
   if (!item) {
 
@@ -768,72 +1079,120 @@ function renderQuestion() {
 
   }
 
-  document.getElementById("progress").textContent =
-    `Question ${state.currentQuestion + 1} of ${state.questions.length}`;
 
-  document.getElementById("competencyBadge").textContent =
-    item.competency;
+  document
+    .getElementById("progress")
+    .textContent =
+      `Question ${state.currentQuestion + 1} of ${state.questions.length}`;
 
-  document.getElementById("typeBadge").textContent =
-    item.type;
 
-  document.getElementById("questionText").textContent =
-    item.question;
+  document
+    .getElementById("competencyBadge")
+    .textContent =
+      item.competency;
 
-  document.getElementById("answer").value = "";
 
-  document.getElementById("status").textContent = "";
+  document
+    .getElementById("typeBadge")
+    .textContent =
+      item.type;
 
-  document.getElementById("submitButton").disabled = false;
+
+  document
+    .getElementById("questionText")
+    .textContent =
+      item.question;
+
+
+  document
+    .getElementById("answer")
+    .value = "";
+
+
+  document
+    .getElementById("status")
+    .textContent = "";
+
+
+  document
+    .getElementById("submitButton")
+    .disabled = false;
 
 }
 
+
+/* =========================================================
+   FOLLOW-UP RENDERING
+========================================================= */
 
 function renderFollowup() {
 
-  document.getElementById("progress").textContent =
-    `Follow-up for Question ${state.currentQuestion + 1}`;
+  document
+    .getElementById("progress")
+    .textContent =
+      `Adaptive Follow-up — Main Question ${state.currentQuestion + 1}`;
 
-  document.getElementById("competencyBadge").textContent =
-    state.originalQuestion?.competency || "Follow-up";
 
-  document.getElementById("typeBadge").textContent =
-    "Adaptive Follow-up";
+  document
+    .getElementById("competencyBadge")
+    .textContent =
+      state.originalQuestion?.competency ||
+      "Follow-up";
 
-  document.getElementById("questionText").textContent =
-    state.followupQuestion;
 
-  document.getElementById("answer").value = "";
+  document
+    .getElementById("typeBadge")
+    .textContent =
+      "Adaptive Follow-up";
 
-  document.getElementById("status").textContent = "";
 
-  document.getElementById("submitButton").disabled = false;
+  document
+    .getElementById("questionText")
+    .textContent =
+      state.followupQuestion;
+
+
+  document
+    .getElementById("answer")
+    .value = "";
+
+
+  document
+    .getElementById("status")
+    .textContent = "";
+
+
+  document
+    .getElementById("submitButton")
+    .disabled = false;
 
 }
 
 
-/* =========================
-   GROQ API
-========================= */
+/* =========================================================
+   GROQ
+========================================================= */
 
 async function callGroq(messages) {
 
-  const response = await fetch("/api/chat", {
+  const response =
+    await fetch("/api/chat", {
 
-    method: "POST",
+      method: "POST",
 
-    headers: {
-      "Content-Type": "application/json"
-    },
+      headers: {
+        "Content-Type": "application/json"
+      },
 
-    body: JSON.stringify({
-      messages
-    })
+      body: JSON.stringify({
+        messages
+      })
 
-  });
+    });
 
 
-  const data = await response.json();
+  const data =
+    await response.json();
 
 
   if (!response.ok) {
@@ -853,7 +1212,9 @@ async function callGroq(messages) {
 
   if (!content) {
 
-    throw new Error("Empty AI response.");
+    throw new Error(
+      "Empty AI response."
+    );
 
   }
 
@@ -863,26 +1224,35 @@ async function callGroq(messages) {
 }
 
 
-/* =========================
-   JSON CLEANING
-========================= */
+/* =========================================================
+   CLEAN JSON
+========================================================= */
 
 function cleanJSON(text) {
 
-  let cleaned = text.trim();
+  let cleaned =
+    text.trim();
+
 
   if (cleaned.startsWith("```")) {
 
-    cleaned = cleaned
-      .replace(/^```json/i, "")
-      .replace(/^```/i, "")
-      .replace(/```$/i, "")
-      .trim();
+    cleaned =
+      cleaned
+        .replace(/^```json/i, "")
+        .replace(/^```/i, "")
+        .replace(/```$/i, "")
+        .trim();
 
   }
 
-  const firstBrace = cleaned.indexOf("{");
-  const lastBrace = cleaned.lastIndexOf("}");
+
+  const firstBrace =
+    cleaned.indexOf("{");
+
+
+  const lastBrace =
+    cleaned.lastIndexOf("}");
+
 
   if (
     firstBrace !== -1 &&
@@ -898,18 +1268,23 @@ function cleanJSON(text) {
 
   }
 
+
   return JSON.parse(cleaned);
 
 }
 
 
-/* =========================
+/* =========================================================
    ANSWER EVALUATION
-========================= */
+========================================================= */
 
-async function evaluateWithAI(question, answer) {
+async function evaluateWithAI(
+  question,
+  answer
+) {
 
   const systemPrompt = `
+
 You are an expert technical interview evaluator.
 
 Evaluate the candidate answer using this rubric:
@@ -921,9 +1296,17 @@ Evidence and Examples: 15%
 Problem Solving: 15%
 Communication: 10%
 
+Candidate context may include:
+- candidate name
+- target role
+- experience level
+- job description
+
+Use that context when relevant.
+
 Return ONLY valid JSON.
 
-Use these exact fields:
+Use exactly:
 
 {
   "relevance": 0,
@@ -940,17 +1323,52 @@ Use these exact fields:
   "evidence_points": []
 }
 
-Each category should be scored from 0 to 100.
+Each category must be 0 to 100.
 
-overall_score must reflect the weighted rubric.
+overall_score should reflect:
 
-Do not invent candidate experience.
+relevance * 0.15
++
+correctness * 0.25
++
+depth * 0.20
++
+evidence * 0.15
++
+problem_solving * 0.15
++
+communication * 0.10
 
-Follow-up should be true when the answer needs additional evidence,
-reasoning, implementation detail, clarification, or specificity.
+Do not invent experience, technologies,
+achievements, metrics, or project details.
+
+If the answer is vague or lacks useful evidence,
+a follow-up may be needed.
+
 `;
 
+
+  const context = `
+
+Candidate:
+${state.candidateName}
+
+Role:
+${state.role}
+
+Experience Level:
+${state.experienceLevel}
+
+Job Description:
+${state.jobDescription || "Not provided"}
+
+`;
+
+
   const userPrompt = `
+
+${context}
+
 Interview Question:
 ${question}
 
@@ -958,27 +1376,34 @@ Candidate Answer:
 ${answer}
 
 Evaluate the answer objectively.
+
 `;
 
-  const response = await callGroq([
-    {
-      role: "system",
-      content: systemPrompt
-    },
-    {
-      role: "user",
-      content: userPrompt
-    }
-  ]);
+
+  const response =
+    await callGroq([
+
+      {
+        role: "system",
+        content: systemPrompt
+      },
+
+      {
+        role: "user",
+        content: userPrompt
+      }
+
+    ]);
+
 
   return cleanJSON(response);
 
 }
 
 
-/* =========================
+/* =========================================================
    FOLLOW-UP GENERATION
-========================= */
+========================================================= */
 
 async function generateFollowup(
   question,
@@ -987,30 +1412,40 @@ async function generateFollowup(
 ) {
 
   const systemPrompt = `
+
 You are an adaptive technical interviewer.
 
 Generate ONE concise follow-up question.
 
-The follow-up must be based directly on:
-1. The original question.
-2. The candidate's answer.
-3. The evaluation.
+The question must be directly connected to:
+- the original interview question
+- the candidate's answer
+- the evaluation
 
-Focus on the biggest missing area such as:
+Focus on the biggest missing area:
 - concrete example
 - implementation detail
 - technical reasoning
 - trade-off
 - measurable result
+- architecture
 - tool/framework choice
-- architecture detail
 
-Do not ask something unrelated.
+Do not ask an unrelated question.
 
 Return ONLY the question.
+
 `;
 
+
   const userPrompt = `
+
+Candidate Role:
+${state.role}
+
+Experience Level:
+${state.experienceLevel}
+
 Original Question:
 ${question}
 
@@ -1020,31 +1455,40 @@ ${answer}
 Evaluation:
 ${JSON.stringify(evaluation)}
 
-Generate one useful follow-up question.
+Generate one useful adaptive follow-up question.
+
 `;
 
+
   return await callGroq([
+
     {
       role: "system",
       content: systemPrompt
     },
+
     {
       role: "user",
       content: userPrompt
     }
+
   ]);
 
 }
 
 
-/* =========================
+/* =========================================================
    SUBMIT ANSWER
-========================= */
+========================================================= */
 
 async function submitAnswer() {
 
   const answer =
-    document.getElementById("answer").value.trim();
+    document
+      .getElementById("answer")
+      .value
+      .trim();
+
 
   if (!answer) {
 
@@ -1056,17 +1500,23 @@ async function submitAnswer() {
 
 
   const button =
-    document.getElementById("submitButton");
+    document.getElementById(
+      "submitButton"
+    );
+
 
   button.disabled = true;
 
-  document.getElementById("status").textContent =
-    "AI is evaluating your answer...";
+
+  document
+    .getElementById("status")
+    .textContent =
+      "AI is evaluating your answer...";
 
 
   try {
 
-    /* FOLLOW-UP ANSWER */
+    /* FOLLOW-UP */
 
     if (state.followupActive) {
 
@@ -1078,26 +1528,48 @@ async function submitAnswer() {
 
 
       state.answers.push({
-        question: state.followupQuestion,
-        answer: answer,
+
+        question:
+          state.followupQuestion,
+
+        answer,
+
         isFollowup: true
+
       });
 
 
       state.evaluations.push({
+
         ...evaluation,
-        question: state.followupQuestion,
+
+        question:
+          state.followupQuestion,
+
+        competency:
+          state.originalQuestion?.competency ||
+          "Follow-up",
+
+        type:
+          "Adaptive Follow-up",
+
         isFollowup: true
+
       });
 
 
       state.followupActive = false;
+
       state.followupQuestion = "";
+
       state.originalQuestion = null;
+
 
       state.currentQuestion++;
 
+
       saveSession();
+
 
       if (
         state.currentQuestion >=
@@ -1112,15 +1584,18 @@ async function submitAnswer() {
 
       }
 
+
       return;
 
     }
 
 
-    /* MAIN ANSWER */
+    /* MAIN QUESTION */
 
     const question =
-      state.questions[state.currentQuestion];
+      state.questions[
+        state.currentQuestion
+      ];
 
 
     const evaluation =
@@ -1131,18 +1606,32 @@ async function submitAnswer() {
 
 
     state.answers.push({
-      question: question.question,
-      answer: answer,
+
+      question:
+        question.question,
+
+      answer,
+
       isFollowup: false
+
     });
 
 
     state.evaluations.push({
+
       ...evaluation,
-      question: question.question,
-      competency: question.competency,
-      type: question.type,
+
+      question:
+        question.question,
+
+      competency:
+        question.competency,
+
+      type:
+        question.type,
+
       isFollowup: false
+
     });
 
 
@@ -1157,8 +1646,13 @@ async function submitAnswer() {
 
 
       state.followupActive = true;
-      state.followupQuestion = followup;
-      state.originalQuestion = question;
+
+      state.followupQuestion =
+        followup;
+
+      state.originalQuestion =
+        question;
+
 
       saveSession();
 
@@ -1169,6 +1663,7 @@ async function submitAnswer() {
       state.currentQuestion++;
 
       saveSession();
+
 
       if (
         state.currentQuestion >=
@@ -1189,8 +1684,12 @@ async function submitAnswer() {
 
     console.error(error);
 
-    document.getElementById("status").textContent =
-      "Error: " + error.message;
+
+    document
+      .getElementById("status")
+      .textContent =
+        "Error: " + error.message;
+
 
     button.disabled = false;
 
@@ -1199,9 +1698,9 @@ async function submitAnswer() {
 }
 
 
-/* =========================
-   SCORE CALCULATION
-========================= */
+/* =========================================================
+   LOCAL SCORE
+========================================================= */
 
 function calculateLocalScore() {
 
@@ -1209,39 +1708,71 @@ function calculateLocalScore() {
     return 0;
   }
 
+
   const total =
     state.evaluations.reduce(
       (sum, item) =>
-        sum + Number(item.overall_score || 0),
+        sum +
+        Number(
+          item.overall_score || 0
+        ),
       0
     );
 
+
   return Math.round(
-    total / state.evaluations.length
+    total /
+    state.evaluations.length
   );
 
 }
 
 
+/* =========================================================
+   CATEGORY SCORES
+========================================================= */
+
 function calculateCategoryScores() {
 
   const categories = [
+
     "relevance",
+
     "correctness",
+
     "depth",
+
     "evidence",
+
     "problem_solving",
+
     "communication"
+
   ];
+
 
   const result = {};
 
-  for (const category of categories) {
+
+  for (
+    const category of categories
+  ) {
 
     const values =
       state.evaluations
-        .map(item => Number(item[category] || 0))
-        .filter(value => !Number.isNaN(value));
+
+        .map(
+          item =>
+            Number(
+              item[category] || 0
+            )
+        )
+
+        .filter(
+          value =>
+            !Number.isNaN(value)
+        );
+
 
     result[category] =
       values.length
@@ -1249,66 +1780,96 @@ function calculateCategoryScores() {
             values.reduce(
               (a, b) => a + b,
               0
-            ) / values.length
+            ) /
+            values.length
           )
         : 0;
 
   }
+
 
   return result;
 
 }
 
 
-/* =========================
-   AI FINAL REPORT
-========================= */
+/* =========================================================
+   FINAL AI REPORT
+========================================================= */
 
-async function generateAIReport() {
+async function generateReport() {
 
   showScreen("reportScreen");
 
-  document.getElementById("overallScore").textContent =
-    "Generating...";
 
-  document.getElementById("summary").innerHTML =
-    `<div class="loading">Generating personalized AI report...</div>`;
+  document
+    .getElementById("overallScore")
+    .textContent =
+      "Generating...";
+
+
+  document
+    .getElementById("summary")
+    .innerHTML =
+      `
+        <div class="loading">
+          Generating personalized AI report...
+        </div>
+      `;
 
 
   const interviewData = {
 
-    role: state.role,
+    candidateName:
+      state.candidateName,
 
-    questions: state.questions,
+    role:
+      state.role,
 
-    answers: state.answers,
+    experienceLevel:
+      state.experienceLevel,
 
-    evaluations: state.evaluations
+    jobDescription:
+      state.jobDescription,
+
+    questions:
+      state.questions,
+
+    answers:
+      state.answers,
+
+    evaluations:
+      state.evaluations
 
   };
 
 
   const systemPrompt = `
+
 You are an expert interview-report analyst.
 
-Create a detailed but evidence-based final interview report.
+Create a detailed evidence-based final interview report.
 
-Use ONLY the supplied interview questions, candidate answers,
-and evaluations.
+Use ONLY the supplied:
+- candidate context
+- job description
+- interview questions
+- candidate answers
+- evaluations
 
-Do NOT invent:
+Do not invent:
 - experience
 - technologies
 - achievements
 - metrics
 - projects
-- skills
 - employers
 - responsibilities
 
-Identify actual strengths and actual gaps from the supplied evidence.
+If a skill was not sufficiently tested,
+say that the interview did not provide enough evidence.
 
-Return ONLY valid JSON with exactly this structure:
+Return ONLY valid JSON:
 
 {
   "overall_score": 0,
@@ -1333,24 +1894,36 @@ Return ONLY valid JSON with exactly this structure:
   "learning_priorities": []
 }
 
-Severity and priority must be:
+severity must be:
+high, medium, or low.
+
+priority must be:
 high, medium, or low.
 
 The report should distinguish between:
 - demonstrated knowledge
 - partially demonstrated knowledge
-- missing evidence
+- insufficient evidence
 
-Do not claim the candidate lacks a skill simply because it was not asked.
-Say that the interview did not provide enough evidence when appropriate.
+The overall score should reflect
+the supplied evaluation scores.
 
-The overall score should reflect the supplied evaluation scores.
+When a job description is provided,
+identify gaps relative to the stated role requirements,
+but do not claim a candidate lacks a skill merely because
+it was not demonstrated in one question.
+
 `;
 
+
   const userPrompt = `
+
 Generate the final report for this interview:
 
-${JSON.stringify(interviewData)}
+${JSON.stringify(
+  interviewData
+)}
+
 `;
 
 
@@ -1358,14 +1931,17 @@ ${JSON.stringify(interviewData)}
 
     const response =
       await callGroq([
+
         {
           role: "system",
           content: systemPrompt
         },
+
         {
           role: "user",
           content: userPrompt
         }
+
       ]);
 
 
@@ -1374,7 +1950,6 @@ ${JSON.stringify(interviewData)}
 
 
     renderAIReport(report);
-
 
   } catch (error) {
 
@@ -1387,30 +1962,70 @@ ${JSON.stringify(interviewData)}
 }
 
 
-/* =========================
-   RENDER AI REPORT
-========================= */
+/* =========================================================
+   AI REPORT RENDER
+========================================================= */
 
 function renderAIReport(report) {
 
   const localScore =
     calculateLocalScore();
 
+
+  const aiScore =
+    Number(
+      report.overall_score
+    );
+
+
   const finalScore =
-    Number(report.overall_score);
+    Number.isFinite(aiScore)
+      ? aiScore
+      : localScore;
 
-  document.getElementById("overallScore").textContent =
-    `${Number.isFinite(finalScore) ? finalScore : localScore}/100`;
+
+  document
+    .getElementById("overallScore")
+    .textContent =
+      `${finalScore}/100`;
 
 
-  document.getElementById("summary").innerHTML =
-    `<p>${escapeHTML(
-      report.summary ||
-      "Interview completed successfully."
-    )}</p>`;
+  document
+    .getElementById("candidateReportInfo")
+    .innerHTML =
+      `
+        <p>
+          <strong>Candidate:</strong>
+          ${escapeHTML(state.candidateName)}
+        </p>
+
+        <p>
+          <strong>Role:</strong>
+          ${escapeHTML(state.role)}
+        </p>
+
+        <p>
+          <strong>Experience:</strong>
+          ${escapeHTML(state.experienceLevel)}
+        </p>
+      `;
+
+
+  document
+    .getElementById("summary")
+    .innerHTML =
+      `
+        <p>
+          ${escapeHTML(
+            report.summary ||
+            "Interview completed successfully."
+          )}
+        </p>
+      `;
 
 
   renderScoreBreakdown();
+
 
   renderStringList(
     "strengths",
@@ -1443,25 +2058,55 @@ function renderAIReport(report) {
   );
 
 
-  document.getElementById("interviewSummary").innerHTML =
-    `
-      <p><strong>Role:</strong> ${escapeHTML(state.role)}</p>
-      <p><strong>Main questions:</strong> ${state.questions.length}</p>
-      <p><strong>Total answered items:</strong> ${state.answers.length}</p>
-      <p><strong>Evaluated items:</strong> ${state.evaluations.length}</p>
-    `;
+  document
+    .getElementById("interviewSummary")
+    .innerHTML =
+      `
+        <p>
+          <strong>Role:</strong>
+          ${escapeHTML(state.role)}
+        </p>
+
+        <p>
+          <strong>Experience Level:</strong>
+          ${escapeHTML(state.experienceLevel)}
+        </p>
+
+        <p>
+          <strong>Main Questions:</strong>
+          ${state.questions.length}
+        </p>
+
+        <p>
+          <strong>Total Answered Items:</strong>
+          ${state.answers.length}
+        </p>
+
+        <p>
+          <strong>Evaluated Items:</strong>
+          ${state.evaluations.length}
+        </p>
+
+        <p>
+          <strong>Job Description Used:</strong>
+          ${state.jobDescription ? "Yes" : "No"}
+        </p>
+      `;
 
 
   renderTranscript();
 
-  localStorage.removeItem(STORAGE_KEY);
+
+  localStorage.removeItem(
+    STORAGE_KEY
+  );
 
 }
 
 
-/* =========================
+/* =========================================================
    FALLBACK REPORT
-========================= */
+========================================================= */
 
 function renderFallbackReport() {
 
@@ -1469,17 +2114,43 @@ function renderFallbackReport() {
     calculateLocalScore();
 
 
-  document.getElementById("overallScore").textContent =
-    `${score}/100`;
+  document
+    .getElementById("overallScore")
+    .textContent =
+      `${score}/100`;
 
 
-  document.getElementById("summary").innerHTML =
-    `
-      <p>
-        The AI report could not be generated, so this report uses
-        the interview evaluation data available locally.
-      </p>
-    `;
+  document
+    .getElementById("candidateReportInfo")
+    .innerHTML =
+      `
+        <p>
+          <strong>Candidate:</strong>
+          ${escapeHTML(state.candidateName)}
+        </p>
+
+        <p>
+          <strong>Role:</strong>
+          ${escapeHTML(state.role)}
+        </p>
+
+        <p>
+          <strong>Experience:</strong>
+          ${escapeHTML(state.experienceLevel)}
+        </p>
+      `;
+
+
+  document
+    .getElementById("summary")
+    .innerHTML =
+      `
+        <p>
+          The AI report could not be generated.
+          The report below uses the available
+          interview evaluation data.
+        </p>
+      `;
 
 
   renderScoreBreakdown();
@@ -1489,18 +2160,48 @@ function renderFallbackReport() {
 
   const gaps = [];
 
+  const evidence = [];
 
-  state.evaluations.forEach(item => {
 
-    if (Array.isArray(item.strengths)) {
-      strengths.push(...item.strengths);
+  state.evaluations.forEach(
+    item => {
+
+      if (
+        Array.isArray(item.strengths)
+      ) {
+
+        strengths.push(
+          ...item.strengths
+        );
+
+      }
+
+
+      if (
+        Array.isArray(item.gaps)
+      ) {
+
+        gaps.push(
+          ...item.gaps
+        );
+
+      }
+
+
+      if (
+        Array.isArray(
+          item.evidence_points
+        )
+      ) {
+
+        evidence.push(
+          ...item.evidence_points
+        );
+
+      }
+
     }
-
-    if (Array.isArray(item.gaps)) {
-      gaps.push(...item.gaps);
-    }
-
-  });
+  );
 
 
   renderStringList(
@@ -1519,9 +2220,7 @@ function renderFallbackReport() {
 
   renderStringList(
     "evidence",
-    state.evaluations.flatMap(
-      item => item.evidence_points || []
-    ),
+    [...new Set(evidence)],
     "No evidence points recorded."
   );
 
@@ -1546,24 +2245,45 @@ function renderFallbackReport() {
   );
 
 
-  document.getElementById("interviewSummary").innerHTML =
-    `
-      <p><strong>Role:</strong> ${escapeHTML(state.role)}</p>
-      <p><strong>Main questions:</strong> ${state.questions.length}</p>
-      <p><strong>Total answered items:</strong> ${state.answers.length}</p>
-    `;
+  document
+    .getElementById("interviewSummary")
+    .innerHTML =
+      `
+        <p>
+          <strong>Role:</strong>
+          ${escapeHTML(state.role)}
+        </p>
+
+        <p>
+          <strong>Experience Level:</strong>
+          ${escapeHTML(state.experienceLevel)}
+        </p>
+
+        <p>
+          <strong>Main Questions:</strong>
+          ${state.questions.length}
+        </p>
+
+        <p>
+          <strong>Total Answered Items:</strong>
+          ${state.answers.length}
+        </p>
+      `;
 
 
   renderTranscript();
 
-  localStorage.removeItem(STORAGE_KEY);
+
+  localStorage.removeItem(
+    STORAGE_KEY
+  );
 
 }
 
 
-/* =========================
+/* =========================================================
    SCORE BREAKDOWN
-========================= */
+========================================================= */
 
 function renderScoreBreakdown() {
 
@@ -1573,34 +2293,57 @@ function renderScoreBreakdown() {
 
   const labels = {
 
-    relevance: "Relevance",
-    correctness: "Technical Correctness",
-    depth: "Depth & Reasoning",
-    evidence: "Evidence & Examples",
-    problem_solving: "Problem Solving",
-    communication: "Communication"
+    relevance:
+      "Relevance",
+
+    correctness:
+      "Technical Correctness",
+
+    depth:
+      "Depth & Reasoning",
+
+    evidence:
+      "Evidence & Examples",
+
+    problem_solving:
+      "Problem Solving",
+
+    communication:
+      "Communication"
 
   };
 
 
-  document.getElementById("scoreBreakdown").innerHTML =
-    Object.entries(labels)
-      .map(
-        ([key, label]) => `
-          <div class="score-box">
-            ${escapeHTML(label)}
-            <strong>${scores[key]}/100</strong>
-          </div>
-        `
-      )
-      .join("");
+  document
+    .getElementById("scoreBreakdown")
+    .innerHTML =
+
+      Object.entries(labels)
+
+        .map(
+          ([key, label]) => `
+
+            <div class="score-box">
+
+              ${escapeHTML(label)}
+
+              <strong>
+                ${scores[key]}/100
+              </strong>
+
+            </div>
+
+          `
+        )
+
+        .join("");
 
 }
 
 
-/* =========================
-   LIST RENDERING
-========================= */
+/* =========================================================
+   STRING LIST
+========================================================= */
 
 function renderStringList(
   elementId,
@@ -1609,10 +2352,15 @@ function renderStringList(
 ) {
 
   const element =
-    document.getElementById(elementId);
+    document.getElementById(
+      elementId
+    );
 
 
-  if (!Array.isArray(items) || !items.length) {
+  if (
+    !Array.isArray(items) ||
+    !items.length
+  ) {
 
     element.innerHTML =
       `<p>${escapeHTML(emptyText)}</p>`;
@@ -1622,33 +2370,48 @@ function renderStringList(
   }
 
 
+  const cleanedItems =
+    items
+      .filter(Boolean)
+      .filter(
+        (item, index, array) =>
+          array.indexOf(item) === index
+      );
+
+
   element.innerHTML =
     `
       <ul>
-        ${items
-          .filter(Boolean)
+
+        ${cleanedItems
           .map(
             item =>
               `<li>${escapeHTML(item)}</li>`
           )
           .join("")}
+
       </ul>
     `;
 
 }
 
 
-/* =========================
-   GAP LIST
-========================= */
+/* =========================================================
+   SKILL GAPS
+========================================================= */
 
 function renderGapList(gaps) {
 
   const element =
-    document.getElementById("skillGaps");
+    document.getElementById(
+      "skillGaps"
+    );
 
 
-  if (!Array.isArray(gaps) || !gaps.length) {
+  if (
+    !Array.isArray(gaps) ||
+    !gaps.length
+  ) {
 
     element.innerHTML =
       "<p>No specific skill gaps identified.</p>";
@@ -1662,27 +2425,41 @@ function renderGapList(gaps) {
     gaps
       .map(
         gap => `
+
           <div class="gap">
 
             <span class="severity">
-              ${escapeHTML(gap.severity || "medium")}
+              ${escapeHTML(
+                gap.severity ||
+                "medium"
+              )}
             </span>
 
             <h4>
-              ${escapeHTML(gap.skill || "Skill")}
+              ${escapeHTML(
+                gap.skill ||
+                "Skill"
+              )}
             </h4>
 
             <p>
               <strong>Evidence:</strong>
-              ${escapeHTML(gap.evidence || "Not enough evidence.")}
+              ${escapeHTML(
+                gap.evidence ||
+                "Not enough evidence."
+              )}
             </p>
 
             <p>
               <strong>Improvement:</strong>
-              ${escapeHTML(gap.improvement || "Practice and strengthen this area.")}
+              ${escapeHTML(
+                gap.improvement ||
+                "Practice and strengthen this area."
+              )}
             </p>
 
           </div>
+
         `
       )
       .join("");
@@ -1690,20 +2467,24 @@ function renderGapList(gaps) {
 }
 
 
-/* =========================
+/* =========================================================
    RECOMMENDATIONS
-========================= */
+========================================================= */
 
 function renderRecommendationList(
   recommendations
 ) {
 
   const element =
-    document.getElementById("recommendations");
+    document.getElementById(
+      "recommendations"
+    );
 
 
   if (
-    !Array.isArray(recommendations) ||
+    !Array.isArray(
+      recommendations
+    ) ||
     !recommendations.length
   ) {
 
@@ -1719,23 +2500,33 @@ function renderRecommendationList(
     recommendations
       .map(
         item => `
+
           <div class="recommendation">
 
             <span class="severity">
-              Priority: ${escapeHTML(item.priority || "medium")}
+              Priority:
+              ${escapeHTML(
+                item.priority ||
+                "medium"
+              )}
             </span>
 
             <p>
               <strong>Gap:</strong>
-              ${escapeHTML(item.gap || "")}
+              ${escapeHTML(
+                item.gap || ""
+              )}
             </p>
 
             <p>
               <strong>Action:</strong>
-              ${escapeHTML(item.action || "")}
+              ${escapeHTML(
+                item.action || ""
+              )}
             </p>
 
           </div>
+
         `
       )
       .join("");
@@ -1743,14 +2534,16 @@ function renderRecommendationList(
 }
 
 
-/* =========================
+/* =========================================================
    TRANSCRIPT
-========================= */
+========================================================= */
 
 function renderTranscript() {
 
   const element =
-    document.getElementById("transcript");
+    document.getElementById(
+      "transcript"
+    );
 
 
   if (!state.answers.length) {
@@ -1767,23 +2560,34 @@ function renderTranscript() {
     state.answers
       .map(
         (item, index) => `
+
           <div class="transcript-item">
 
             <div class="transcript-q">
+
               ${index + 1}.
-              ${escapeHTML(item.question)}
+              ${escapeHTML(
+                item.question
+              )}
+
               ${
                 item.isFollowup
                   ? " (Adaptive Follow-up)"
                   : ""
               }
+
             </div>
 
             <div class="transcript-a">
-              ${escapeHTML(item.answer)}
+
+              ${escapeHTML(
+                item.answer
+              )}
+
             </div>
 
           </div>
+
         `
       )
       .join("");
@@ -1791,24 +2595,26 @@ function renderTranscript() {
 }
 
 
-/* =========================
-   NEW INTERVIEW
-========================= */
+/* =========================================================
+   START NEW INTERVIEW
+========================================================= */
 
 function startNewInterview() {
 
   clearSavedSession();
 
-  showScreen("setupScreen");
+  showScreen(
+    "setupScreen"
+  );
 
   checkSavedSession();
 
 }
 
 
-/* =========================
+/* =========================================================
    PAGE LOAD
-========================= */
+========================================================= */
 
 window.addEventListener(
   "load",
