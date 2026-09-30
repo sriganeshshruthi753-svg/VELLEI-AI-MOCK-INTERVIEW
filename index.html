@@ -1,1530 +1,1030 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELLEI AI Mock Interview</title>
 
-    <title>VELLEI AI Mock Interview Platform</title>
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f7fb;
+  color: #172033;
+}
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            color: #222;
-        }
+header {
+  background: #172033;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
 
-        header {
-            background: #1f2937;
-            color: white;
-            padding: 22px;
-            text-align: center;
-        }
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+}
 
-        header h1 {
-            margin: 0 0 8px;
-        }
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
 
-        header p {
-            margin: 0;
-        }
+h1, h2, h3 {
+  margin-top: 0;
+}
 
-        .container {
-            max-width: 950px;
-            margin: 30px auto;
-            padding: 20px;
-        }
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
 
-        .card {
-            background: white;
-            padding: 28px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-        }
+select,
+textarea,
+button {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  font-size: 16px;
+}
 
-        h2 {
-            margin-top: 0;
-        }
+select,
+textarea {
+  border: 1px solid #ccd3df;
+}
 
-        select,
-        textarea {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
-        }
+textarea {
+  min-height: 180px;
+  resize: vertical;
+}
 
-        select {
-            margin-top: 8px;
-        }
+button {
+  margin-top: 15px;
+  border: none;
+  background: #172033;
+  color: white;
+  cursor: pointer;
+}
 
-        textarea {
-            min-height: 170px;
-            resize: vertical;
-            margin-top: 15px;
-        }
+button:hover {
+  opacity: 0.9;
+}
 
-        button {
-            padding: 12px 22px;
-            border: none;
-            border-radius: 8px;
-            background: #2563eb;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
+.secondary {
+  background: #687386;
+}
 
-        button:hover {
-            background: #1d4ed8;
-        }
+.hidden {
+  display: none;
+}
 
-        .hidden {
-            display: none;
-        }
+.progress {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
 
-        .progress {
-            color: #666;
-            margin-bottom: 15px;
-        }
+.question {
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.5;
+  margin: 20px 0;
+}
 
-        .question {
-            font-size: 21px;
-            font-weight: bold;
-            line-height: 1.5;
-            margin: 20px 0;
-        }
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #e8eef8;
+  border-radius: 20px;
+  margin-right: 5px;
+  font-size: 13px;
+}
 
-        .competency {
-            display: inline-block;
-            background: #e5e7eb;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 13px;
-            margin-bottom: 10px;
-        }
+.score {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px 0;
+}
 
-        .followup {
-            background: #fff7ed;
-            border-left: 5px solid #f97316;
-            padding: 12px;
-            margin: 15px 0;
-        }
+.report-item {
+  padding: 15px;
+  border-bottom: 1px solid #e5e9f0;
+}
 
-        .score {
-            font-size: 38px;
-            font-weight: bold;
-            margin: 15px 0;
-        }
+.error {
+  background: #ffe8e8;
+  color: #a40000;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 15px;
+}
 
-        .evaluation {
-            border: 1px solid #ddd;
-            padding: 18px;
-            margin-top: 15px;
-            border-radius: 8px;
-        }
-
-        .evaluation h4 {
-            margin-top: 0;
-        }
-
-        .bar {
-            height: 10px;
-            background: #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-            margin: 6px 0 12px;
-        }
-
-        .bar-fill {
-            height: 100%;
-            background: #2563eb;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        .transcript-item {
-            border-bottom: 1px solid #ddd;
-            padding: 15px 0;
-        }
-
-        .transcript-question {
-            font-weight: bold;
-        }
-
-        .small {
-            color: #666;
-            font-size: 14px;
-        }
-    </style>
+.loading {
+  padding: 15px;
+  background: #eef4ff;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h1>VELLEI AI Mock Interview</h1>
-    <p>AI-powered interview preparation platform</p>
+  <h1>VELLEI AI Mock Interview</h1>
+  <p>AI-powered adaptive interview demo</p>
 </header>
-
 
 <div class="container">
 
-    <!-- ============================= -->
-    <!-- SETUP SCREEN -->
-    <!-- ============================= -->
+  <!-- SETUP -->
+  <section id="setupScreen" class="card">
+    <h2>Start Mock Interview</h2>
 
-    <div class="card" id="setupScreen">
+    <label for="jobSelect">Select Target Role</label>
 
-        <h2>Start Mock Interview</h2>
+    <select id="jobSelect">
+      <option>Python Developer</option>
+      <option>Data Scientist</option>
+      <option>ML Engineer</option>
+      <option>GenAI Engineer</option>
+      <option>Backend Developer</option>
+    </select>
 
-        <p>
-            Select your target job and begin a structured mock interview.
-        </p>
+    <button onclick="startInterview()">
+      Start AI Interview
+    </button>
+  </section>
 
-        <label>
-            <strong>Target Role</strong>
-        </label>
 
-        <select id="jobRole">
-            <option value="Python Developer">
-                Python Developer
-            </option>
+  <!-- INTERVIEW -->
+  <section id="interviewScreen" class="card hidden">
 
-            <option value="Data Scientist">
-                Data Scientist
-            </option>
+    <div class="progress" id="progress"></div>
 
-            <option value="ML Engineer">
-                ML Engineer
-            </option>
-
-            <option value="GenAI Engineer">
-                GenAI Engineer
-            </option>
-
-            <option value="Backend Developer">
-                Backend Developer
-            </option>
-        </select>
-
-        <br>
-
-        <button onclick="startInterview()">
-            Start Interview
-        </button>
-
+    <div>
+      <span class="badge" id="competency"></span>
+      <span class="badge" id="questionType"></span>
     </div>
 
+    <div class="question" id="questionText"></div>
 
-    <!-- ============================= -->
-    <!-- INTERVIEW SCREEN -->
-    <!-- ============================= -->
+    <label for="answerInput">Your Answer</label>
 
-    <div class="card hidden" id="interviewScreen">
+    <textarea
+      id="answerInput"
+      placeholder="Type your answer here..."
+    ></textarea>
 
-        <div class="progress" id="progress"></div>
+    <button id="submitButton" onclick="submitAnswer()">
+      Submit Answer
+    </button>
 
-        <div class="competency" id="competency"></div>
+    <div id="status"></div>
 
-        <h2>AI Interviewer</h2>
-
-        <div class="question" id="question"></div>
-
-        <div id="followupNotice"></div>
-
-        <textarea
-            id="answer"
-            placeholder="Type your answer here..."
-        ></textarea>
-
-        <button onclick="submitAnswer()">
-            Submit Answer
-        </button>
-
-    </div>
+  </section>
 
 
-    <!-- ============================= -->
-    <!-- REPORT SCREEN -->
-    <!-- ============================= -->
+  <!-- REPORT -->
+  <section id="reportScreen" class="card hidden">
 
-    <div class="card hidden" id="resultScreen">
+    <h2>Interview Report</h2>
 
-        <h2>Interview Diagnostic Report</h2>
+    <div id="overallScore"></div>
 
-        <p>
-            <strong>Target Role:</strong>
-            <span id="reportRole"></span>
-        </p>
+    <h3>Strengths</h3>
+    <div id="strengths"></div>
 
-        <div class="score" id="overallScore"></div>
+    <h3>Skill Gaps</h3>
+    <div id="gaps"></div>
 
-        <p id="resultSummary"></p>
+    <h3>Recommendations</h3>
+    <div id="recommendations"></div>
 
+    <h3>Interview Transcript</h3>
+    <div id="transcript"></div>
 
-        <h3>Strengths</h3>
+    <button onclick="location.reload()">
+      Start New Interview
+    </button>
 
-        <ul id="strengths"></ul>
-
-
-        <h3>Gaps</h3>
-
-        <ul id="gaps"></ul>
-
-
-        <h3>Learning Recommendations</h3>
-
-        <ul id="recommendations"></ul>
-
-
-        <h3>Question-by-Question Evaluation</h3>
-
-        <div id="evaluations"></div>
-
-
-        <h3>Interview Transcript</h3>
-
-        <div id="transcript"></div>
-
-    </div>
+  </section>
 
 </div>
 
 
 <script>
 
-    /* =========================================
-       SESSION STATE
-    ========================================= */
-
-    let currentQuestion = 0;
-
-    let answers = [];
-
-    let evaluations = [];
-
-    let followupActive = false;
-
-    let currentFollowupQuestion = null;
-
-    let selectedRole = "";
+const state = {
+  role: "",
+  currentQuestion: 0,
+  questions: [],
+  answers: [],
+  evaluations: [],
+  followupActive: false,
+  followupQuestion: "",
+  originalQuestion: null
+};
 
 
-    /* =========================================
-       QUESTION BANK
-    ========================================= */
+/* ---------------------------------------------------
+   QUESTION BANK
+--------------------------------------------------- */
 
-    const questionBank = {
+const questionBank = {
 
-        "Python Developer": [
+  "Python Developer": [
 
-            {
-                text: "Tell me about yourself and your technical background.",
-                competency: "Communication",
-                type: "behavioral"
-            },
+    {
+      competency: "Communication",
+      type: "behavioral",
+      text: "Tell me about yourself and your technical background."
+    },
 
-            {
-                text: "Explain your experience with Python.",
-                competency: "Python",
-                type: "technical"
-            },
+    {
+      competency: "Python",
+      type: "technical",
+      text: "Explain your experience working with Python."
+    },
 
-            {
-                text: "What is the difference between a list, tuple and set in Python?",
-                competency: "Python Fundamentals",
-                type: "technical"
-            },
+    {
+      competency: "Python Fundamentals",
+      type: "technical",
+      text: "What is the difference between a list, tuple and set in Python?"
+    },
 
-            {
-                text: "Describe one technical project you have worked on.",
-                competency: "Project Experience",
-                type: "project"
-            },
+    {
+      competency: "Project Experience",
+      type: "project",
+      text: "Tell me about a technical project you built using Python."
+    },
 
-            {
-                text: "How would you design a backend API for an AI application?",
-                competency: "Backend Architecture",
-                type: "technical"
-            }
-        ],
-
-
-        "Data Scientist": [
-
-            {
-                text: "Tell me about your background in data science.",
-                competency: "Communication",
-                type: "behavioral"
-            },
-
-            {
-                text: "Explain a machine learning project you have worked on.",
-                competency: "Machine Learning",
-                type: "project"
-            },
-
-            {
-                text: "How do you handle missing data?",
-                competency: "Data Processing",
-                type: "technical"
-            },
-
-            {
-                text: "How would you evaluate a classification model?",
-                competency: "Model Evaluation",
-                type: "technical"
-            },
-
-            {
-                text: "How would you explain a machine learning model to a non-technical stakeholder?",
-                competency: "Communication",
-                type: "situational"
-            }
-        ],
-
-
-        "ML Engineer": [
-
-            {
-                text: "Tell me about your machine learning engineering experience.",
-                competency: "Communication",
-                type: "behavioral"
-            },
-
-            {
-                text: "Describe an ML model you have implemented.",
-                competency: "Machine Learning",
-                type: "project"
-            },
-
-            {
-                text: "What is the difference between training and inference?",
-                competency: "ML Fundamentals",
-                type: "technical"
-            },
-
-            {
-                text: "How would you deploy a machine learning model?",
-                competency: "Deployment",
-                type: "technical"
-            },
-
-            {
-                text: "How would you monitor an ML system in production?",
-                competency: "MLOps",
-                type: "technical"
-            }
-        ],
-
-
-        "GenAI Engineer": [
-
-            {
-                text: "Tell me about your experience with Generative AI.",
-                competency: "Communication",
-                type: "behavioral"
-            },
-
-            {
-                text: "Explain how an LLM application works at a high level.",
-                competency: "LLM Fundamentals",
-                type: "technical"
-            },
-
-            {
-                text: "What is Retrieval-Augmented Generation?",
-                competency: "RAG",
-                type: "technical"
-            },
-
-            {
-                text: "Describe a GenAI project you have implemented.",
-                competency: "GenAI Project",
-                type: "project"
-            },
-
-            {
-                text: "How would you reduce hallucinations in an LLM application?",
-                competency: "LLM Reliability",
-                type: "situational"
-            }
-        ],
-
-
-        "Backend Developer": [
-
-            {
-                text: "Tell me about your backend development experience.",
-                competency: "Communication",
-                type: "behavioral"
-            },
-
-            {
-                text: "What is a REST API?",
-                competency: "API Development",
-                type: "technical"
-            },
-
-            {
-                text: "How would you design a scalable backend service?",
-                competency: "Backend Architecture",
-                type: "technical"
-            },
-
-            {
-                text: "How do you handle errors in a backend application?",
-                competency: "Error Handling",
-                type: "technical"
-            },
-
-            {
-                text: "Describe a backend project you have worked on.",
-                competency: "Project Experience",
-                type: "project"
-            }
-        ]
-
-    };
-
-
-    let questions = [];
-
-
-    /* =========================================
-       START INTERVIEW
-    ========================================= */
-
-    function startInterview() {
-
-        selectedRole =
-            document.getElementById("jobRole").value;
-
-        questions =
-            JSON.parse(
-                JSON.stringify(
-                    questionBank[selectedRole]
-                )
-            );
-
-        currentQuestion = 0;
-
-        answers = [];
-
-        evaluations = [];
-
-        followupActive = false;
-
-        currentFollowupQuestion = null;
-
-        document
-            .getElementById("setupScreen")
-            .classList.add("hidden");
-
-        document
-            .getElementById("interviewScreen")
-            .classList.remove("hidden");
-
-        showQuestion();
+    {
+      competency: "Backend Architecture",
+      type: "technical",
+      text: "How would you design a backend API for an AI application?"
     }
 
+  ],
 
-    /* =========================================
-       SHOW QUESTION
-    ========================================= */
+  "Data Scientist": [
 
-    function showQuestion() {
+    {
+      competency: "Communication",
+      type: "behavioral",
+      text: "Tell me about your data science background."
+    },
 
-        followupActive = false;
+    {
+      competency: "Machine Learning",
+      type: "technical",
+      text: "Describe a machine learning project you have worked on."
+    },
 
-        currentFollowupQuestion = null;
+    {
+      competency: "Data Preparation",
+      type: "technical",
+      text: "How would you handle missing data in a dataset?"
+    },
 
-        document
-            .getElementById("followupNotice")
-            .innerHTML = "";
+    {
+      competency: "Model Evaluation",
+      type: "technical",
+      text: "How would you evaluate a classification model?"
+    },
 
-        const q = questions[currentQuestion];
-
-        document
-            .getElementById("progress")
-            .innerText =
-            "Question " +
-            (currentQuestion + 1) +
-            " of " +
-            questions.length;
-
-        document
-            .getElementById("competency")
-            .innerText =
-            "Competency: " +
-            q.competency;
-
-        document
-            .getElementById("question")
-            .innerText =
-            q.text;
-
-        document
-            .getElementById("answer")
-            .value = "";
-
-        document
-            .getElementById("answer")
-            .focus();
+    {
+      competency: "Communication",
+      type: "situational",
+      text: "How would you explain a machine learning result to a non-technical stakeholder?"
     }
 
+  ],
 
-    /* =========================================
-       SUBMIT ANSWER
-    ========================================= */
+  "ML Engineer": [
 
-    function submitAnswer() {
+    {
+      competency: "ML Engineering",
+      type: "behavioral",
+      text: "Tell me about your machine learning engineering experience."
+    },
 
-        const answer =
-            document
-                .getElementById("answer")
-                .value
-                .trim();
+    {
+      competency: "Model Development",
+      type: "technical",
+      text: "Describe a machine learning model you implemented."
+    },
 
+    {
+      competency: "ML Systems",
+      type: "technical",
+      text: "What is the difference between model training and inference?"
+    },
 
-        if (answer === "") {
+    {
+      competency: "Deployment",
+      type: "technical",
+      text: "How would you deploy a machine learning model to production?"
+    },
 
-            alert(
-                "Please enter your answer before submitting."
-            );
-
-            return;
-        }
-
-
-        /*
-         * FOLLOW-UP ANSWER
-         */
-
-        if (followupActive) {
-
-            answers.push({
-
-                question:
-                    currentFollowupQuestion,
-
-                competency:
-                    questions[currentQuestion].competency,
-
-                answer:
-                    answer,
-
-                isFollowup:
-                    true
-            });
-
-
-            evaluateAnswer(
-                currentFollowupQuestion,
-                answer,
-                true
-            );
-
-
-            currentQuestion++;
-
-            if (
-                currentQuestion <
-                questions.length
-            ) {
-
-                showQuestion();
-
-            } else {
-
-                generateReport();
-
-            }
-
-            return;
-        }
-
-
-        /*
-         * ORIGINAL ANSWER
-         */
-
-        answers.push({
-
-            question:
-                questions[currentQuestion].text,
-
-            competency:
-                questions[currentQuestion].competency,
-
-            answer:
-                answer,
-
-            isFollowup:
-                false
-        });
-
-
-        const evaluation =
-            evaluateAnswer(
-                questions[currentQuestion].text,
-                answer,
-                false
-            );
-
-
-        /*
-         * ADAPTIVE FOLLOW-UP
-         */
-
-        if (
-            evaluation.needsFollowup &&
-            !questions[currentQuestion].followupUsed
-        ) {
-
-            questions[currentQuestion].followupUsed =
-                true;
-
-            followupActive = true;
-
-            currentFollowupQuestion =
-                evaluation.followupQuestion;
-
-
-            document
-                .getElementById("progress")
-                .innerText =
-                "Adaptive Follow-up";
-
-
-            document
-                .getElementById("competency")
-                .innerText =
-                "Competency: " +
-                questions[currentQuestion].competency;
-
-
-            document
-                .getElementById("question")
-                .innerText =
-                currentFollowupQuestion;
-
-
-            document
-                .getElementById("followupNotice")
-                .innerHTML =
-                '<div class="followup">' +
-                '<strong>Adaptive follow-up:</strong> ' +
-                'Your previous answer needs additional evidence or detail.' +
-                '</div>';
-
-
-            document
-                .getElementById("answer")
-                .value = "";
-
-
-            return;
-        }
-
-
-        currentQuestion++;
-
-
-        if (
-            currentQuestion <
-            questions.length
-        ) {
-
-            showQuestion();
-
-        } else {
-
-            generateReport();
-
-        }
+    {
+      competency: "Monitoring",
+      type: "technical",
+      text: "How would you monitor a machine learning system in production?"
     }
 
+  ],
 
-    /* =========================================
-       ANSWER EVALUATION
-    ========================================= */
+  "GenAI Engineer": [
 
-    function evaluateAnswer(
-        question,
+    {
+      competency: "GenAI",
+      type: "behavioral",
+      text: "Tell me about your Generative AI experience."
+    },
+
+    {
+      competency: "LLM Architecture",
+      type: "technical",
+      text: "Explain the high-level architecture of an LLM application."
+    },
+
+    {
+      competency: "RAG",
+      type: "technical",
+      text: "What is Retrieval Augmented Generation and why is it useful?"
+    },
+
+    {
+      competency: "GenAI Project",
+      type: "project",
+      text: "Describe a Generative AI project you have built."
+    },
+
+    {
+      competency: "AI Reliability",
+      type: "technical",
+      text: "How would you reduce hallucinations in a Generative AI application?"
+    }
+
+  ],
+
+  "Backend Developer": [
+
+    {
+      competency: "Backend",
+      type: "behavioral",
+      text: "Tell me about your backend development experience."
+    },
+
+    {
+      competency: "REST API",
+      type: "technical",
+      text: "Explain how a REST API works."
+    },
+
+    {
+      competency: "Scalability",
+      type: "technical",
+      text: "How would you design a scalable backend service?"
+    },
+
+    {
+      competency: "Error Handling",
+      type: "technical",
+      text: "How would you handle errors in a backend application?"
+    },
+
+    {
+      competency: "Project Experience",
+      type: "project",
+      text: "Describe an important backend project you worked on."
+    }
+
+  ]
+
+};
+
+
+/* ---------------------------------------------------
+   START
+--------------------------------------------------- */
+
+function startInterview() {
+
+  state.role = document.getElementById("jobSelect").value;
+
+  state.currentQuestion = 0;
+  state.answers = [];
+  state.evaluations = [];
+  state.followupActive = false;
+
+  state.questions = questionBank[state.role];
+
+  document.getElementById("setupScreen").classList.add("hidden");
+
+  document.getElementById("interviewScreen").classList.remove("hidden");
+
+  showQuestion();
+
+}
+
+
+/* ---------------------------------------------------
+   SHOW QUESTION
+--------------------------------------------------- */
+
+function showQuestion() {
+
+  const q = state.questions[state.currentQuestion];
+
+  document.getElementById("progress").innerText =
+    `Question ${state.currentQuestion + 1} of ${state.questions.length}`;
+
+  document.getElementById("competency").innerText =
+    q.competency;
+
+  document.getElementById("questionType").innerText =
+    q.type;
+
+  document.getElementById("questionText").innerText =
+    q.text;
+
+  document.getElementById("answerInput").value = "";
+
+  document.getElementById("status").innerHTML = "";
+
+}
+
+
+/* ---------------------------------------------------
+   GROQ CALL
+--------------------------------------------------- */
+
+async function callGroq(messages) {
+
+  const response = await fetch("/api/chat", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+      messages
+    })
+
+  });
+
+
+  const data = await response.json();
+
+
+  if (!response.ok) {
+
+    throw new Error(
+      data.error || "AI request failed"
+    );
+
+  }
+
+
+  return data.choices[0].message.content;
+
+}
+
+
+/* ---------------------------------------------------
+   AI EVALUATION
+--------------------------------------------------- */
+
+async function evaluateWithAI(question, answer) {
+
+  const systemPrompt = `
+
+You are the evaluation engine for VELLEI,
+an AI mock interview platform.
+
+Evaluate the candidate answer using this rubric:
+
+Relevance: 15%
+Technical Correctness: 25%
+Depth and Reasoning: 20%
+Evidence and Examples: 15%
+Problem Solving: 15%
+Communication: 10%
+
+Return ONLY valid JSON.
+
+Required format:
+
+{
+  "relevance": 0,
+  "correctness": 0,
+  "depth": 0,
+  "evidence": 0,
+  "problem_solving": 0,
+  "communication": 0,
+  "overall_score": 0,
+  "needs_followup": true,
+  "followup_reason": "",
+  "strengths": [],
+  "gaps": [],
+  "evidence_points": []
+}
+
+Scores must be between 0 and 100.
+
+`;
+
+
+  const userPrompt = `
+
+Target role:
+${state.role}
+
+Question:
+${question.text}
+
+Competency:
+${question.competency}
+
+Candidate answer:
+${answer}
+
+Evaluate the answer according to the rubric.
+
+`;
+
+
+  const result = await callGroq([
+
+    {
+      role: "system",
+      content: systemPrompt
+    },
+
+    {
+      role: "user",
+      content: userPrompt
+    }
+
+  ]);
+
+
+  let cleaned = result.trim();
+
+  cleaned = cleaned
+    .replace(/^```json/i, "")
+    .replace(/^```/i, "")
+    .replace(/```$/i, "")
+    .trim();
+
+
+  return JSON.parse(cleaned);
+
+}
+
+
+/* ---------------------------------------------------
+   AI FOLLOW-UP
+--------------------------------------------------- */
+
+async function generateFollowup(question, answer, evaluation) {
+
+  const prompt = `
+
+You are the adaptive interviewer for VELLEI.
+
+Target role:
+${state.role}
+
+Original question:
+${question.text}
+
+Candidate answer:
+${answer}
+
+Evaluation:
+${JSON.stringify(evaluation)}
+
+Generate ONE concise follow-up question.
+
+Rules:
+
+- Ask for clarification if the answer is vague.
+- Ask for a concrete example if evidence is weak.
+- Ask about reasoning or trade-offs if depth is weak.
+- Do not repeat the original question.
+- Do not reveal scoring criteria.
+- Return only the question text.
+
+`;
+
+
+  return await callGroq([
+
+    {
+      role: "system",
+      content: "You are a professional adaptive interviewer."
+    },
+
+    {
+      role: "user",
+      content: prompt
+    }
+
+  ]);
+
+}
+
+
+/* ---------------------------------------------------
+   SUBMIT ANSWER
+--------------------------------------------------- */
+
+async function submitAnswer() {
+
+  const answerBox =
+    document.getElementById("answerInput");
+
+  const answer =
+    answerBox.value.trim();
+
+
+  if (!answer) {
+
+    alert("Please enter an answer.");
+
+    return;
+
+  }
+
+
+  const button =
+    document.getElementById("submitButton");
+
+  button.disabled = true;
+
+  button.innerText = "AI is evaluating...";
+
+
+  document.getElementById("status").innerHTML =
+    `<div class="loading">
+      VELLEI AI is evaluating your answer...
+    </div>`;
+
+
+  try {
+
+    if (state.followupActive) {
+
+      const followupEvaluation =
+        await evaluateWithAI(
+          {
+            ...state.originalQuestion,
+            text: state.followupQuestion
+          },
+          answer
+        );
+
+
+      state.answers.push({
+
+        question:
+          state.followupQuestion,
+
         answer,
-        isFollowup
+
+        followup: true
+
+      });
+
+
+      state.evaluations.push(
+        followupEvaluation
+      );
+
+
+      state.followupActive = false;
+
+      state.followupQuestion = "";
+
+      state.currentQuestion++;
+
+    }
+
+    else {
+
+      const question =
+        state.questions[state.currentQuestion];
+
+
+      const evaluation =
+        await evaluateWithAI(
+          question,
+          answer
+        );
+
+
+      state.answers.push({
+
+        question:
+          question.text,
+
+        answer,
+
+        followup: false
+
+      });
+
+
+      state.evaluations.push(
+        evaluation
+      );
+
+
+      if (
+        evaluation.needs_followup &&
+        state.currentQuestion <
+          state.questions.length
+      ) {
+
+        const followup =
+          await generateFollowup(
+            question,
+            answer,
+            evaluation
+          );
+
+
+        state.originalQuestion =
+          question;
+
+        state.followupQuestion =
+          followup;
+
+        state.followupActive =
+          true;
+
+
+        document.getElementById(
+          "questionText"
+        ).innerText = followup;
+
+
+        document.getElementById(
+          "competency"
+        ).innerText =
+          question.competency;
+
+
+        document.getElementById(
+          "questionType"
+        ).innerText =
+          "adaptive follow-up";
+
+
+        document.getElementById(
+          "progress"
+        ).innerText =
+          `Follow-up for Question ${
+            state.currentQuestion + 1
+          }`;
+
+
+        document.getElementById(
+          "answerInput"
+        ).value = "";
+
+
+        document.getElementById(
+          "status"
+        ).innerHTML =
+          `<div class="loading">
+            VELLEI detected that more evidence is needed.
+          </div>`;
+
+
+        button.disabled = false;
+
+        button.innerText =
+          "Submit Follow-up";
+
+        return;
+
+      }
+
+
+      state.currentQuestion++;
+
+    }
+
+
+    if (
+      state.currentQuestion >=
+      state.questions.length
     ) {
 
-        const length =
-            answer.length;
+      generateReport();
 
-
-        const words =
-            answer
-                .split(/\s+/)
-                .filter(Boolean)
-                .length;
-
-
-        /*
-         * RELEVANCE
-         */
-
-        let relevance = 50;
-
-        if (words >= 15) {
-            relevance += 20;
-        }
-
-        if (words >= 35) {
-            relevance += 15;
-        }
-
-        relevance =
-            Math.min(100, relevance);
-
-
-        /*
-         * DEPTH
-         */
-
-        let depth = 30;
-
-        if (words >= 25) {
-            depth += 25;
-        }
-
-        if (words >= 50) {
-            depth += 25;
-        }
-
-        depth =
-            Math.min(100, depth);
-
-
-        /*
-         * EVIDENCE
-         */
-
-        const evidenceWords = [
-            "project",
-            "implemented",
-            "built",
-            "developed",
-            "used",
-            "experience",
-            "example",
-            "result",
-            "improved",
-            "deployed",
-            "api",
-            "database",
-            "model"
-        ];
-
-
-        let evidenceCount = 0;
-
-
-        evidenceWords.forEach(
-            word => {
-
-                if (
-                    answer
-                        .toLowerCase()
-                        .includes(word)
-                ) {
-
-                    evidenceCount++;
-                }
-            }
-        );
-
-
-        let evidence =
-            Math.min(
-                100,
-                30 +
-                evidenceCount * 10
-            );
-
-
-        /*
-         * COMMUNICATION
-         */
-
-        let communication = 50;
-
-        if (words >= 20) {
-            communication += 20;
-        }
-
-        if (words >= 40) {
-            communication += 20;
-        }
-
-        communication =
-            Math.min(
-                100,
-                communication
-            );
-
-
-        /*
-         * CORRECTNESS
-         *
-         * MVP heuristic.
-         * Later this will be replaced
-         * by the LLM evaluation engine.
-         */
-
-        let correctness = 50;
-
-        const technicalTerms = [
-            "python",
-            "api",
-            "database",
-            "machine learning",
-            "model",
-            "llm",
-            "rag",
-            "backend",
-            "deployment",
-            "testing",
-            "exception",
-            "algorithm"
-        ];
-
-
-        technicalTerms.forEach(
-            term => {
-
-                if (
-                    answer
-                        .toLowerCase()
-                        .includes(term)
-                ) {
-
-                    correctness += 5;
-                }
-            }
-        );
-
-
-        correctness =
-            Math.min(
-                100,
-                correctness
-            );
-
-
-        /*
-         * PROBLEM SOLVING
-         */
-
-        let problemSolving = 40;
-
-        const reasoningWords = [
-            "because",
-            "therefore",
-            "trade-off",
-            "approach",
-            "reason",
-            "solution",
-            "handle",
-            "design",
-            "first",
-            "then"
-        ];
-
-
-        reasoningWords.forEach(
-            word => {
-
-                if (
-                    answer
-                        .toLowerCase()
-                        .includes(word)
-                ) {
-
-                    problemSolving += 7;
-                }
-            }
-        );
-
-
-        problemSolving =
-            Math.min(
-                100,
-                problemSolving
-            );
-
-
-        /*
-         * OVERALL SCORE
-         *
-         * Based on the specified
-         * VELLEI rubric.
-         */
-
-        const overall =
-            Math.round(
-
-                relevance * 0.15 +
-
-                correctness * 0.25 +
-
-                depth * 0.20 +
-
-                evidence * 0.15 +
-
-                problemSolving * 0.15 +
-
-                communication * 0.10
-
-            );
-
-
-        /*
-         * FOLLOW-UP DECISION
-         */
-
-        const needsFollowup =
-            !isFollowup &&
-            (
-                words < 20 ||
-                evidence < 50 ||
-                depth < 55
-            );
-
-
-        let followupQuestion =
-            "Can you explain that in more detail and give a specific example?";
-
-
-        if (evidence < 50) {
-
-            followupQuestion =
-                "Can you give a concrete example of how you applied this in a project?";
-        }
-
-        else if (depth < 55) {
-
-            followupQuestion =
-                "Why did you choose that approach, and what were the trade-offs?";
-        }
-
-
-        /*
-         * STRENGTHS
-         */
-
-        let strengths = [];
-
-        if (relevance >= 70) {
-            strengths.push(
-                "The answer remained relevant to the question."
-            );
-        }
-
-        if (evidence >= 60) {
-            strengths.push(
-                "The answer included practical evidence or examples."
-            );
-        }
-
-        if (communication >= 70) {
-            strengths.push(
-                "The answer provided reasonable communication detail."
-            );
-        }
-
-
-        /*
-         * GAPS
-         */
-
-        let gaps = [];
-
-        if (depth < 60) {
-            gaps.push(
-                "The answer could provide deeper reasoning and trade-offs."
-            );
-        }
-
-        if (evidence < 60) {
-            gaps.push(
-                "The answer needs more concrete implementation evidence."
-            );
-        }
-
-        if (correctness < 60) {
-            gaps.push(
-                "Technical concepts should be explained more precisely."
-            );
-        }
-
-
-        const evaluation = {
-
-            question:
-                question,
-
-            answerQuality: {
-
-                relevance:
-                    relevance,
-
-                correctness:
-                    correctness,
-
-                depth:
-                    depth,
-
-                evidence:
-                    evidence,
-
-                problemSolving:
-                    problemSolving,
-
-                communication:
-                    communication
-            },
-
-            overallScore:
-                overall,
-
-            evidence:
-                evidenceWords.filter(
-                    word =>
-                        answer
-                            .toLowerCase()
-                            .includes(word)
-                ),
-
-            strengths:
-                strengths,
-
-            gaps:
-                gaps,
-
-            needsFollowup:
-                needsFollowup,
-
-            followupQuestion:
-                followupQuestion
-        };
-
-
-        evaluations.push(evaluation);
-
-
-        return evaluation;
     }
 
+    else {
 
-    /* =========================================
-       FINAL REPORT
-    ========================================= */
+      showQuestion();
 
-    function generateReport() {
-
-        document
-            .getElementById("interviewScreen")
-            .classList.add("hidden");
-
-        document
-            .getElementById("resultScreen")
-            .classList.remove("hidden");
-
-
-        document
-            .getElementById("reportRole")
-            .innerText =
-            selectedRole;
-
-
-        /*
-         * OVERALL SCORE
-         */
-
-        let total = 0;
-
-        evaluations.forEach(
-            evaluation => {
-
-                total +=
-                    evaluation.overallScore;
-            }
-        );
-
-
-        const overallScore =
-            evaluations.length > 0
-                ? Math.round(
-                    total /
-                    evaluations.length
-                )
-                : 0;
-
-
-        document
-            .getElementById("overallScore")
-            .innerText =
-            overallScore + "/100";
-
-
-        document
-            .getElementById("resultSummary")
-            .innerText =
-            "The interview has been completed. " +
-            "This diagnostic is advisory and is based only " +
-            "on the answers provided during this session.";
-
-
-        /*
-         * STRENGTHS
-         */
-
-        const strengthsElement =
-            document.getElementById(
-                "strengths"
-            );
-
-        strengthsElement.innerHTML = "";
-
-
-        let allStrengths = [];
-
-
-        evaluations.forEach(
-            evaluation => {
-
-                allStrengths =
-                    allStrengths.concat(
-                        evaluation.strengths
-                    );
-            }
-        );
-
-
-        allStrengths =
-            [...new Set(allStrengths)];
-
-
-        if (allStrengths.length === 0) {
-
-            addListItem(
-                "strengths",
-                "The candidate completed the interview."
-            );
-
-        } else {
-
-            allStrengths.forEach(
-                strength => {
-
-                    addListItem(
-                        "strengths",
-                        strength
-                    );
-                }
-            );
-        }
-
-
-        /*
-         * GAPS
-         */
-
-        document
-            .getElementById("gaps")
-            .innerHTML = "";
-
-
-        let allGaps = [];
-
-
-        evaluations.forEach(
-            evaluation => {
-
-                allGaps =
-                    allGaps.concat(
-                        evaluation.gaps
-                    );
-            }
-        );
-
-
-        allGaps =
-            [...new Set(allGaps)];
-
-
-        if (allGaps.length === 0) {
-
-            addListItem(
-                "gaps",
-                "No major evidence gap was detected by the MVP evaluator."
-            );
-
-        } else {
-
-            allGaps.forEach(
-                gap => {
-
-                    addListItem(
-                        "gaps",
-                        gap
-                    );
-                }
-            );
-        }
-
-
-        /*
-         * RECOMMENDATIONS
-         */
-
-        document
-            .getElementById(
-                "recommendations"
-            )
-            .innerHTML = "";
-
-
-        addListItem(
-            "recommendations",
-            "Practice answering technical questions with concrete project examples."
-        );
-
-        addListItem(
-            "recommendations",
-            "Explain the reasoning behind technical decisions and mention trade-offs."
-        );
-
-        addListItem(
-            "recommendations",
-            "Use measurable outcomes when describing project work."
-        );
-
-
-        /*
-         * PER-QUESTION EVALUATION
-         */
-
-        const evaluationContainer =
-            document.getElementById(
-                "evaluations"
-            );
-
-        evaluationContainer.innerHTML = "";
-
-
-        evaluations.forEach(
-            (evaluation, index) => {
-
-                const div =
-                    document.createElement(
-                        "div"
-                    );
-
-                div.className =
-                    "evaluation";
-
-
-                div.innerHTML = `
-
-                    <h4>
-                        Question ${index + 1}
-                    </h4>
-
-                    <p>
-                        <strong>
-                            ${escapeHTML(
-                                evaluation.question
-                            )}
-                        </strong>
-                    </p>
-
-                    <p>
-                        Overall Score:
-                        <strong>
-                            ${evaluation.overallScore}/100
-                        </strong>
-                    </p>
-
-                    ${createScoreBar(
-                        "Relevance",
-                        evaluation.answerQuality.relevance
-                    )}
-
-                    ${createScoreBar(
-                        "Technical Correctness",
-                        evaluation.answerQuality.correctness
-                    )}
-
-                    ${createScoreBar(
-                        "Depth / Reasoning",
-                        evaluation.answerQuality.depth
-                    )}
-
-                    ${createScoreBar(
-                        "Evidence",
-                        evaluation.answerQuality.evidence
-                    )}
-
-                    ${createScoreBar(
-                        "Problem Solving",
-                        evaluation.answerQuality.problemSolving
-                    )}
-
-                    ${createScoreBar(
-                        "Communication",
-                        evaluation.answerQuality.communication
-                    )}
-
-                `;
-
-
-                evaluationContainer
-                    .appendChild(div);
-            }
-        );
-
-
-        /*
-         * TRANSCRIPT
-         */
-
-        const transcriptContainer =
-            document.getElementById(
-                "transcript"
-            );
-
-        transcriptContainer.innerHTML = "";
-
-
-        answers.forEach(
-            (item, index) => {
-
-                const div =
-                    document.createElement(
-                        "div"
-                    );
-
-                div.className =
-                    "transcript-item";
-
-
-                div.innerHTML = `
-
-                    <div class="transcript-question">
-                        Q${index + 1}:
-                        ${escapeHTML(
-                            item.question
-                        )}
-                    </div>
-
-                    <p>
-                        ${escapeHTML(
-                            item.answer
-                        )}
-                    </p>
-
-                    <div class="small">
-                        Competency:
-                        ${escapeHTML(
-                            item.competency
-                        )}
-                    </div>
-
-                `;
-
-
-                transcriptContainer
-                    .appendChild(div);
-            }
-        );
     }
 
+  }
 
-    /* =========================================
-       SCORE BAR
-    ========================================= */
+  catch (error) {
 
-    function createScoreBar(
-        label,
-        score
-    ) {
+    console.error(error);
 
-        return `
+    document.getElementById("status").innerHTML =
+      `<div class="error">
+        AI Error: ${escapeHTML(error.message)}
+      </div>`;
 
-            <div>
-                <strong>
-                    ${label}: ${score}/100
-                </strong>
+  }
 
-                <div class="bar">
-                    <div
-                        class="bar-fill"
-                        style="width:${score}%"
-                    ></div>
-                </div>
-            </div>
 
-        `;
+  button.disabled = false;
+
+  button.innerText = "Submit Answer";
+
+}
+
+
+/* ---------------------------------------------------
+   REPORT
+--------------------------------------------------- */
+
+function generateReport() {
+
+  document
+    .getElementById("interviewScreen")
+    .classList.add("hidden");
+
+
+  document
+    .getElementById("reportScreen")
+    .classList.remove("hidden");
+
+
+  const evaluations =
+    state.evaluations;
+
+
+  if (!evaluations.length) {
+
+    return;
+
+  }
+
+
+  const average =
+    evaluations.reduce(
+      (sum, e) =>
+        sum + Number(e.overall_score || 0),
+      0
+    ) / evaluations.length;
+
+
+  document.getElementById(
+    "overallScore"
+  ).innerHTML =
+
+    `<div class="score">
+      Overall Score: ${Math.round(average)}/100
+    </div>`;
+
+
+  const strengths = [];
+
+  const gaps = [];
+
+
+  evaluations.forEach(e => {
+
+    if (Array.isArray(e.strengths)) {
+
+      strengths.push(...e.strengths);
+
     }
 
+    if (Array.isArray(e.gaps)) {
 
-    /* =========================================
-       LIST ITEM
-    ========================================= */
+      gaps.push(...e.gaps);
 
-    function addListItem(
-        id,
-        text
-    ) {
-
-        const li =
-            document.createElement(
-                "li"
-            );
-
-        li.innerText =
-            text;
-
-        document
-            .getElementById(id)
-            .appendChild(li);
     }
 
+  });
 
-    /* =========================================
-       BASIC HTML ESCAPING
-       Prevents answer text from becoming HTML.
-    ========================================= */
 
-    function escapeHTML(text) {
+  document.getElementById(
+    "strengths"
+  ).innerHTML =
 
-        const div =
-            document.createElement(
-                "div"
-            );
+    [...new Set(strengths)]
+      .map(
+        x =>
+          `<div class="report-item">
+            ✓ ${escapeHTML(x)}
+          </div>`
+      )
+      .join("");
 
-        div.innerText =
-            text;
 
-        return div.innerHTML;
-    }
+  document.getElementById(
+    "gaps"
+  ).innerHTML =
+
+    [...new Set(gaps)]
+      .map(
+        x =>
+          `<div class="report-item">
+            • ${escapeHTML(x)}
+          </div>`
+      )
+      .join("");
+
+
+  document.getElementById(
+    "recommendations"
+  ).innerHTML = `
+
+    <div class="report-item">
+      Practice giving concrete examples from your projects.
+    </div>
+
+    <div class="report-item">
+      Explain technical reasoning and trade-offs.
+    </div>
+
+    <div class="report-item">
+      Include measurable outcomes when describing work.
+    </div>
+
+  `;
+
+
+  document.getElementById(
+    "transcript"
+  ).innerHTML =
+
+    state.answers
+      .map(
+        (item, index) => `
+
+          <div class="report-item">
+
+            <strong>
+              ${index + 1}. ${escapeHTML(item.question)}
+            </strong>
+
+            <p>
+              ${escapeHTML(item.answer)}
+            </p>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+}
+
+
+/* ---------------------------------------------------
+   SECURITY
+--------------------------------------------------- */
+
+function escapeHTML(value) {
+
+  return String(value)
+
+    .replace(/&/g, "&amp;")
+
+    .replace(/</g, "&lt;")
+
+    .replace(/>/g, "&gt;")
+
+    .replace(/"/g, "&quot;")
+
+    .replace(/'/g, "&#039;");
+
+}
 
 </script>
 
