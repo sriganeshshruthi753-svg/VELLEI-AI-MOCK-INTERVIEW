@@ -1,8 +1,9 @@
+````html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VELLEI AI Mock Interview</title>
 
   <style>
@@ -13,49 +14,40 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4f7fb;
+      background: #f5f7fb;
       color: #1f2937;
-    }
-
-    header {
-      background: #111827;
-      color: white;
-      padding: 22px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0 0 6px;
-      font-size: 28px;
-    }
-
-    header p {
-      margin: 0;
-      color: #d1d5db;
     }
 
     .container {
       max-width: 1000px;
-      margin: 30px auto;
-      padding: 0 20px;
+      margin: 40px auto;
+      padding: 20px;
     }
 
     .card {
       background: white;
-      border-radius: 16px;
-      padding: 25px;
+      border-radius: 18px;
+      padding: 28px;
       margin-bottom: 20px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 32px;
     }
 
     h2 {
-      margin-top: 0;
+      font-size: 24px;
     }
 
     label {
       display: block;
-      font-weight: bold;
-      margin: 16px 0 8px;
+      font-weight: 600;
+      margin: 16px 0 7px;
     }
 
     input,
@@ -65,78 +57,94 @@
       padding: 13px;
       border: 1px solid #d1d5db;
       border-radius: 10px;
-      font-size: 16px;
+      font-size: 15px;
       font-family: inherit;
     }
 
     textarea {
-      min-height: 180px;
-      resize: vertical;
-    }
-
-    #jobDescription {
       min-height: 150px;
+      resize: vertical;
     }
 
     button {
       border: none;
       border-radius: 10px;
       padding: 13px 20px;
-      font-size: 16px;
-      font-weight: bold;
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
-      background: #2563eb;
+      background: #111827;
       color: white;
+      margin-top: 18px;
     }
 
     button:hover {
       opacity: 0.9;
     }
 
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .secondary {
-      background: #4b5563;
+    button.secondary {
+      background: #6b7280;
     }
 
     .hidden {
       display: none;
     }
 
-    .progress {
-      margin-bottom: 20px;
-      font-weight: bold;
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .info-box {
+      background: #f3f4f6;
+      padding: 14px;
+      border-radius: 10px;
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 5px;
     }
 
     .badges {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 18px;
+      margin-bottom: 15px;
     }
 
     .badge {
-      background: #eef2ff;
-      color: #3730a3;
-      padding: 7px 12px;
+      background: #e5e7eb;
+      padding: 6px 10px;
       border-radius: 20px;
-      font-size: 14px;
-      font-weight: bold;
+      font-size: 13px;
+      font-weight: 600;
     }
 
     .question {
-      font-size: 22px;
-      font-weight: bold;
+      background: #f9fafb;
+      border-left: 5px solid #111827;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 20px;
       line-height: 1.5;
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
 
-    .status {
+    .progress {
+      margin: 15px 0;
+      font-weight: 600;
+    }
+
+    .loading {
+      padding: 20px;
+      text-align: center;
+      font-weight: 600;
+      background: #f3f4f6;
+      border-radius: 10px;
       margin-top: 15px;
-      font-weight: bold;
     }
 
     .score {
@@ -146,126 +154,49 @@
       margin: 20px 0;
     }
 
-    .score-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 20px 0;
-    }
-
-    .score-box {
-      background: #f9fafb;
-      padding: 18px;
-      border-radius: 12px;
-      text-align: center;
-      border: 1px solid #e5e7eb;
-    }
-
-    .score-box strong {
-      display: block;
-      font-size: 26px;
-      margin-top: 5px;
-    }
-
     .report-section {
-      margin-top: 28px;
+      margin-top: 25px;
     }
 
-    .report-section h3 {
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: 8px;
-    }
-
-    ul {
-      padding-left: 22px;
-    }
-
-    li {
-      margin-bottom: 9px;
-      line-height: 1.5;
-    }
-
-    .gap {
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 12px;
-    }
-
-    .severity {
-      display: inline-block;
-      padding: 4px 9px;
-      border-radius: 15px;
-      font-size: 12px;
-      font-weight: bold;
-      background: #f3f4f6;
-    }
-
-    .recommendation {
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 12px;
-    }
-
-    .transcript-item {
+    .report-item {
       background: #f9fafb;
-      border-radius: 12px;
       padding: 15px;
-      margin-bottom: 12px;
+      border-radius: 10px;
+      margin: 10px 0;
     }
 
-    .transcript-q {
-      font-weight: bold;
-      margin-bottom: 8px;
+    .report-item strong {
+      display: block;
+      margin-bottom: 6px;
     }
 
-    .transcript-a {
-      color: #4b5563;
-      white-space: pre-wrap;
+    .transcript-question {
+      font-weight: 700;
+      margin-top: 20px;
     }
 
-    .loading {
-      text-align: center;
-      padding: 20px;
-      font-weight: bold;
-    }
-
-    .resume-box {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 20px;
-    }
-
-    .context-box {
+    .transcript-answer {
       background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 20px;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 6px;
     }
 
-    .button-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .small-text {
-      color: #6b7280;
-      font-size: 14px;
-      line-height: 1.5;
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 15px;
     }
 
     @media (max-width: 700px) {
-      .score-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .info-grid {
+        grid-template-columns: 1fr;
       }
 
-      .question {
-        font-size: 19px;
+      .container {
+        margin: 10px auto;
       }
     }
   </style>
@@ -273,188 +204,176 @@
 
 <body>
 
-<header>
-  <h1>VELLEI AI Mock Interview</h1>
-  <p>AI-powered adaptive interview platform</p>
-</header>
-
 <div class="container">
 
   <!-- SETUP -->
   <section id="setupScreen" class="card">
-
-    <h2>Start Your Interview</h2>
-
-    <div id="resumeBox" class="resume-box hidden">
-      <strong>Previous interview found.</strong>
-      <p id="resumeText"></p>
-
-      <div class="button-row">
-        <button onclick="resumeInterview()">Resume Interview</button>
-        <button class="secondary" onclick="clearSavedSession()">
-          Discard & Start New
-        </button>
-      </div>
-    </div>
+    <h1>VELLEI AI Mock Interview</h1>
+    <p>AI-powered personalized mock interview platform.</p>
 
     <label for="candidateName">Candidate Name</label>
-
-    <input
-      id="candidateName"
-      type="text"
-      placeholder="Enter your name"
-    >
+    <input id="candidateName" placeholder="Enter your name" />
 
     <label for="role">Job Role</label>
-
     <select id="role">
-      <option value="">Select a role</option>
-      <option value="Python Developer">Python Developer</option>
-      <option value="Data Scientist">Data Scientist</option>
-      <option value="ML Engineer">ML Engineer</option>
+      <option value="">Select role</option>
       <option value="GenAI Engineer">GenAI Engineer</option>
-      <option value="Backend Developer">Backend Developer</option>
+      <option value="AI Engineer">AI Engineer</option>
+      <option value="Machine Learning Engineer">Machine Learning Engineer</option>
+      <option value="Data Scientist">Data Scientist</option>
+      <option value="Python Developer">Python Developer</option>
     </select>
 
     <label for="experienceLevel">Experience Level</label>
-
     <select id="experienceLevel">
       <option value="">Select experience level</option>
-      <option value="Fresher">Fresher</option>
       <option value="Entry Level">Entry Level</option>
       <option value="Junior">Junior</option>
       <option value="Mid Level">Mid Level</option>
       <option value="Senior">Senior</option>
     </select>
 
-    <label for="jobDescription">
-      Job Description
-    </label>
-
+    <label for="jobDescription">Job Description</label>
     <textarea
       id="jobDescription"
-      placeholder="Paste the job description here. This helps the AI evaluate answers against the role requirements."
+      placeholder="Paste the job description here..."
     ></textarea>
 
-    <p class="small-text">
-      Job description is optional. If provided, the AI will use it as
-      additional interview context.
-    </p>
-
-    <br>
-
-    <button onclick="startInterview()">
-      Start Interview
+    <button id="startButton" onclick="startInterview()">
+      Start AI Interview
     </button>
 
+    <div id="setupLoading" class="loading hidden">
+      AI is creating your personalized interview...
+    </div>
+
+    <div id="setupError"></div>
   </section>
 
 
   <!-- INTERVIEW -->
   <section id="interviewScreen" class="card hidden">
 
-    <div class="progress" id="progress"></div>
+    <h2>AI Interview</h2>
 
-    <div class="context-box">
-      <strong id="candidateDisplay"></strong>
-      <br>
-      <span id="roleDisplay"></span>
-      <br>
-      <span id="experienceDisplay"></span>
+    <div class="info-grid">
+      <div class="info-box">
+        <strong>Candidate</strong>
+        <span id="displayCandidate"></span>
+      </div>
+
+      <div class="info-box">
+        <strong>Role</strong>
+        <span id="displayRole"></span>
+      </div>
+
+      <div class="info-box">
+        <strong>Experience</strong>
+        <span id="displayExperience"></span>
+      </div>
     </div>
+
+    <div class="progress" id="progressText"></div>
 
     <div class="badges">
       <span class="badge" id="competencyBadge"></span>
-      <span class="badge" id="typeBadge"></span>
+      <span class="badge" id="questionTypeBadge"></span>
     </div>
 
     <div class="question" id="questionText"></div>
 
-    <label for="answer">Your Answer</label>
+    <label for="answerInput">Your Answer</label>
 
     <textarea
-      id="answer"
+      id="answerInput"
       placeholder="Type your answer here..."
     ></textarea>
 
-    <br><br>
-
-    <button id="submitButton" onclick="submitAnswer()">
+    <button id="submitAnswerButton" onclick="submitAnswer()">
       Submit Answer
     </button>
 
-    <div class="status" id="status"></div>
+    <div id="answerLoading" class="loading hidden">
+      AI is evaluating your answer...
+    </div>
+
+    <div id="answerError"></div>
 
   </section>
 
 
   <!-- REPORT -->
-  <section id="reportScreen" class="hidden">
+  <section id="reportScreen" class="card hidden">
 
-    <div class="card">
-      <h2>Interview Report</h2>
+    <h1>Interview Report</h1>
 
-      <div id="candidateReportInfo"></div>
+    <div class="info-grid">
+      <div class="info-box">
+        <strong>Candidate</strong>
+        <span id="reportCandidate"></span>
+      </div>
 
-      <div class="score" id="overallScore">--</div>
+      <div class="info-box">
+        <strong>Role</strong>
+        <span id="reportRole"></span>
+      </div>
 
-      <div id="summary"></div>
+      <div class="info-box">
+        <strong>Experience</strong>
+        <span id="reportExperience"></span>
+      </div>
     </div>
 
+    <div class="score" id="overallScore">0/100</div>
 
-    <div class="card report-section">
-      <h3>Performance Breakdown</h3>
-      <div class="score-grid" id="scoreBreakdown"></div>
+    <div class="report-section">
+      <h2>Summary</h2>
+      <div id="reportSummary"></div>
     </div>
 
+    <div class="report-section">
+      <h2>Performance Breakdown</h2>
+      <div id="performanceBreakdown"></div>
+    </div>
 
-    <div class="card report-section">
-      <h3>Strengths</h3>
+    <div class="report-section">
+      <h2>Strengths</h2>
       <div id="strengths"></div>
     </div>
 
-
-    <div class="card report-section">
-      <h3>Skill Gaps</h3>
+    <div class="report-section">
+      <h2>Skill Gaps</h2>
       <div id="skillGaps"></div>
     </div>
 
-
-    <div class="card report-section">
-      <h3>Evidence From Interview</h3>
+    <div class="report-section">
+      <h2>Evidence From Interview</h2>
       <div id="evidence"></div>
     </div>
 
-
-    <div class="card report-section">
-      <h3>Personalized Recommendations</h3>
+    <div class="report-section">
+      <h2>Personalized Recommendations</h2>
       <div id="recommendations"></div>
     </div>
 
-
-    <div class="card report-section">
-      <h3>Next Learning Priorities</h3>
+    <div class="report-section">
+      <h2>Next Learning Priorities</h2>
       <div id="learningPriorities"></div>
     </div>
 
-
-    <div class="card report-section">
-      <h3>Interview Summary</h3>
+    <div class="report-section">
+      <h2>Interview Summary</h2>
       <div id="interviewSummary"></div>
     </div>
 
-
-    <div class="card report-section">
-      <h3>Transcript</h3>
+    <div class="report-section">
+      <h2>Transcript</h2>
       <div id="transcript"></div>
     </div>
 
-
-    <div class="card">
-      <button onclick="startNewInterview()">
-        Start New Interview
-      </button>
-    </div>
+    <button onclick="startNewInterview()">
+      Start New Interview
+    </button>
 
   </section>
 
@@ -463,893 +382,206 @@
 
 <script>
 
-/* =========================================================
-   STORAGE
-========================================================= */
-
-const STORAGE_KEY =
-  "vellei_mock_interview_session_v2";
-
-
-/* =========================================================
-   QUESTION BANK
-========================================================= */
-
-const questionBank = {
-
-  "Python Developer": [
-    {
-      question:
-        "Tell me about yourself and your technical background.",
-      competency: "Background",
-      type: "Behavioral"
-    },
-    {
-      question:
-        "Explain your experience working with Python.",
-      competency: "Python",
-      type: "Technical"
-    },
-    {
-      question:
-        "What is the difference between a list, tuple, and set in Python?",
-      competency: "Python Fundamentals",
-      type: "Technical"
-    },
-    {
-      question:
-        "Tell me about a technical project where you used Python.",
-      competency: "Projects",
-      type: "Project"
-    },
-    {
-      question:
-        "How would you design a backend API for an AI application?",
-      competency: "Backend Architecture",
-      type: "System Design"
-    }
-  ],
-
-  "Data Scientist": [
-    {
-      question:
-        "Tell me about your data science background.",
-      competency: "Background",
-      type: "Behavioral"
-    },
-    {
-      question:
-        "Describe a machine learning project you worked on.",
-      competency: "Machine Learning",
-      type: "Project"
-    },
-    {
-      question:
-        "How would you handle missing data in a dataset?",
-      competency: "Data Processing",
-      type: "Technical"
-    },
-    {
-      question:
-        "How would you evaluate a classification model?",
-      competency: "Model Evaluation",
-      type: "Technical"
-    },
-    {
-      question:
-        "How would you explain an ML result to a non-technical stakeholder?",
-      competency: "Communication",
-      type: "Situational"
-    }
-  ],
-
-  "ML Engineer": [
-    {
-      question:
-        "Tell me about your machine learning engineering experience.",
-      competency: "Background",
-      type: "Behavioral"
-    },
-    {
-      question:
-        "Describe a machine learning model you implemented.",
-      competency: "Machine Learning",
-      type: "Project"
-    },
-    {
-      question:
-        "What is the difference between training and inference?",
-      competency: "ML Fundamentals",
-      type: "Technical"
-    },
-    {
-      question:
-        "How would you deploy an ML model to production?",
-      competency: "Deployment",
-      type: "System Design"
-    },
-    {
-      question:
-        "How would you monitor a machine learning system in production?",
-      competency: "Monitoring",
-      type: "System Design"
-    }
-  ],
-
-  "GenAI Engineer": [
-    {
-      question:
-        "Tell me about your Generative AI experience.",
-      competency: "GenAI Background",
-      type: "Behavioral"
-    },
-    {
-      question:
-        "Explain the high-level architecture of an LLM application.",
-      competency: "LLM Architecture",
-      type: "Technical"
-    },
-    {
-      question:
-        "What is Retrieval Augmented Generation and why is it useful?",
-      competency: "RAG",
-      type: "Technical"
-    },
-    {
-      question:
-        "Describe a Generative AI project you worked on.",
-      competency: "GenAI Projects",
-      type: "Project"
-    },
-    {
-      question:
-        "How would you reduce hallucinations in a GenAI application?",
-      competency: "Reliability",
-      type: "System Design"
-    }
-  ],
-
-  "Backend Developer": [
-    {
-      question:
-        "Tell me about your backend development experience.",
-      competency: "Background",
-      type: "Behavioral"
-    },
-    {
-      question:
-        "What is a REST API?",
-      competency: "API Fundamentals",
-      type: "Technical"
-    },
-    {
-      question:
-        "How would you design a scalable backend service?",
-      competency: "Scalability",
-      type: "System Design"
-    },
-    {
-      question:
-        "How do you handle errors in backend applications?",
-      competency: "Error Handling",
-      type: "Technical"
-    },
-    {
-      question:
-        "Tell me about an important backend project you worked on.",
-      competency: "Projects",
-      type: "Project"
-    }
-  ]
-
-};
-
-
-/* =========================================================
-   STATE
-========================================================= */
+const STORAGE_KEY = "vellei_mock_interview_session_v3";
 
 let state = {
-
   candidateName: "",
-
   role: "",
-
   experienceLevel: "",
-
   jobDescription: "",
 
   currentQuestion: 0,
 
   questions: [],
-
   answers: [],
-
   evaluations: [],
 
   followupActive: false,
-
   followupQuestion: "",
-
   originalQuestion: null
-
 };
 
 
-/* =========================================================
-   STORAGE FUNCTIONS
-========================================================= */
+/* =========================
+   LOCAL STORAGE
+========================= */
 
 function saveSession() {
-
-  try {
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(state)
-    );
-
-  } catch (error) {
-
-    console.error(
-      "Could not save session:",
-      error
-    );
-
-  }
-
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(state)
+  );
 }
 
 
 function loadSession() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if (!saved) {
+    return false;
+  }
 
   try {
-
-    const saved =
-      localStorage.getItem(STORAGE_KEY);
-
-    if (!saved) {
-      return null;
-    }
-
-    return JSON.parse(saved);
-
-  } catch (error) {
-
-    console.error(
-      "Could not load session:",
-      error
-    );
-
-    return null;
-
+    state = JSON.parse(saved);
+    return true;
+  } catch {
+    localStorage.removeItem(STORAGE_KEY);
+    return false;
   }
-
 }
 
 
-function clearSavedSession() {
-
+function clearSession() {
   localStorage.removeItem(STORAGE_KEY);
-
-  state = {
-
-    candidateName: "",
-
-    role: "",
-
-    experienceLevel: "",
-
-    jobDescription: "",
-
-    currentQuestion: 0,
-
-    questions: [],
-
-    answers: [],
-
-    evaluations: [],
-
-    followupActive: false,
-
-    followupQuestion: "",
-
-    originalQuestion: null
-
-  };
-
-  document
-    .getElementById("resumeBox")
-    .classList.add("hidden");
-
-  document.getElementById("candidateName").value = "";
-
-  document.getElementById("role").value = "";
-
-  document.getElementById("experienceLevel").value = "";
-
-  document.getElementById("jobDescription").value = "";
-
 }
 
 
-function checkSavedSession() {
+/* =========================
+   HELPERS
+========================= */
 
-  const saved = loadSession();
-
-  if (
-    !saved ||
-    !saved.role ||
-    !saved.questions ||
-    !saved.questions.length
-  ) {
-
-    return;
-
-  }
-
-
-  if (
-    saved.currentQuestion >=
-    saved.questions.length
-  ) {
-
-    return;
-
-  }
-
-
-  document
-    .getElementById("resumeBox")
-    .classList.remove("hidden");
-
-
-  document.getElementById("resumeText").textContent =
-    `${saved.candidateName || "Candidate"} — ${saved.role} — ` +
-    `${saved.experienceLevel || "Experience not specified"} — ` +
-    `Question ${Math.min(
-      saved.currentQuestion + 1,
-      saved.questions.length
-    )} of ${saved.questions.length}.`;
-
+function show(id) {
+  document.getElementById(id).classList.remove("hidden");
 }
 
 
-/* =========================================================
-   SCREEN MANAGEMENT
-========================================================= */
-
-function showScreen(screenId) {
-
-  document
-    .getElementById("setupScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("interviewScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("reportScreen")
-    .classList.add("hidden");
-
-
-  document
-    .getElementById(screenId)
-    .classList.remove("hidden");
-
+function hide(id) {
+  document.getElementById(id).classList.add("hidden");
 }
 
-
-/* =========================================================
-   HTML ESCAPE
-========================================================= */
 
 function escapeHTML(value) {
 
-  if (
-    value === null ||
-    value === undefined
-  ) {
-
+  if (value === null || value === undefined) {
     return "";
-
   }
-
 
   return String(value)
-
-    .replaceAll("&", "&amp;")
-
-    .replaceAll("<", "&lt;")
-
-    .replaceAll(">", "&gt;")
-
-    .replaceAll('"', "&quot;")
-
-    .replaceAll("'", "&#039;");
-
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
-
-/* =========================================================
-   START INTERVIEW
-========================================================= */
-
-function startInterview() {
-
-  const candidateName =
-    document
-      .getElementById("candidateName")
-      .value
-      .trim();
-
-
-  const role =
-    document
-      .getElementById("role")
-      .value;
-
-
-  const experienceLevel =
-    document
-      .getElementById("experienceLevel")
-      .value;
-
-
-  const jobDescription =
-    document
-      .getElementById("jobDescription")
-      .value
-      .trim();
-
-
-  if (!candidateName) {
-
-    alert("Please enter your name.");
-
-    return;
-
-  }
-
-
-  if (!role) {
-
-    alert("Please select a job role.");
-
-    return;
-
-  }
-
-
-  if (!experienceLevel) {
-
-    alert("Please select your experience level.");
-
-    return;
-
-  }
-
-
-  state = {
-
-    candidateName,
-
-    role,
-
-    experienceLevel,
-
-    jobDescription,
-
-    currentQuestion: 0,
-
-    questions:
-      questionBank[role].map(item => ({
-        ...item
-      })),
-
-    answers: [],
-
-    evaluations: [],
-
-    followupActive: false,
-
-    followupQuestion: "",
-
-    originalQuestion: null
-
-  };
-
-
-  saveSession();
-
-
-  showScreen("interviewScreen");
-
-  renderCandidateInfo();
-
-  renderQuestion();
-
-}
-
-
-/* =========================================================
-   RESUME
-========================================================= */
-
-function resumeInterview() {
-
-  const saved = loadSession();
-
-  if (!saved) {
-
-    alert("No saved interview found.");
-
-    return;
-
-  }
-
-
-  state = saved;
-
-
-  document
-    .getElementById("candidateName")
-    .value =
-      state.candidateName || "";
-
-
-  document
-    .getElementById("role")
-    .value =
-      state.role || "";
-
-
-  document
-    .getElementById("experienceLevel")
-    .value =
-      state.experienceLevel || "";
-
-
-  document
-    .getElementById("jobDescription")
-    .value =
-      state.jobDescription || "";
-
-
-  showScreen("interviewScreen");
-
-  renderCandidateInfo();
-
-
-  if (state.followupActive) {
-
-    renderFollowup();
-
-  } else {
-
-    renderQuestion();
-
-  }
-
-}
-
-
-/* =========================================================
-   CANDIDATE INFO
-========================================================= */
-
-function renderCandidateInfo() {
-
-  document
-    .getElementById("candidateDisplay")
-    .textContent =
-      `Candidate: ${state.candidateName || "Candidate"}`;
-
-
-  document
-    .getElementById("roleDisplay")
-    .textContent =
-      `Role: ${state.role}`;
-
-
-  document
-    .getElementById("experienceDisplay")
-    .textContent =
-      `Experience: ${state.experienceLevel}`;
-
-}
-
-
-/* =========================================================
-   QUESTION RENDERING
-========================================================= */
-
-function renderQuestion() {
-
-  const item =
-    state.questions[state.currentQuestion];
-
-
-  if (!item) {
-
-    generateReport();
-
-    return;
-
-  }
-
-
-  document
-    .getElementById("progress")
-    .textContent =
-      `Question ${state.currentQuestion + 1} of ${state.questions.length}`;
-
-
-  document
-    .getElementById("competencyBadge")
-    .textContent =
-      item.competency;
-
-
-  document
-    .getElementById("typeBadge")
-    .textContent =
-      item.type;
-
-
-  document
-    .getElementById("questionText")
-    .textContent =
-      item.question;
-
-
-  document
-    .getElementById("answer")
-    .value = "";
-
-
-  document
-    .getElementById("status")
-    .textContent = "";
-
-
-  document
-    .getElementById("submitButton")
-    .disabled = false;
-
-}
-
-
-/* =========================================================
-   FOLLOW-UP RENDERING
-========================================================= */
-
-function renderFollowup() {
-
-  document
-    .getElementById("progress")
-    .textContent =
-      `Adaptive Follow-up — Main Question ${state.currentQuestion + 1}`;
-
-
-  document
-    .getElementById("competencyBadge")
-    .textContent =
-      state.originalQuestion?.competency ||
-      "Follow-up";
-
-
-  document
-    .getElementById("typeBadge")
-    .textContent =
-      "Adaptive Follow-up";
-
-
-  document
-    .getElementById("questionText")
-    .textContent =
-      state.followupQuestion;
-
-
-  document
-    .getElementById("answer")
-    .value = "";
-
-
-  document
-    .getElementById("status")
-    .textContent = "";
-
-
-  document
-    .getElementById("submitButton")
-    .disabled = false;
-
-}
-
-
-/* =========================================================
-   GROQ
-========================================================= */
-
-async function callGroq(messages) {
-
-  const response =
-    await fetch("/api/chat", {
-
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json"
-      },
-
-      body: JSON.stringify({
-        messages
-      })
-
-    });
-
-
-  const data =
-    await response.json();
-
-
-  if (!response.ok) {
-
-    throw new Error(
-      data?.error ||
-      data?.details ||
-      "AI request failed"
-    );
-
-  }
-
-
-  const content =
-    data?.choices?.[0]?.message?.content;
-
-
-  if (!content) {
-
-    throw new Error(
-      "Empty AI response."
-    );
-
-  }
-
-
-  return content;
-
-}
-
-
-/* =========================================================
-   CLEAN JSON
-========================================================= */
 
 function cleanJSON(text) {
 
-  let cleaned =
-    text.trim();
+  if (!text) {
+    throw new Error("Empty AI response");
+  }
 
+  let cleaned = text.trim();
 
   if (cleaned.startsWith("```")) {
-
-    cleaned =
-      cleaned
-        .replace(/^```json/i, "")
-        .replace(/^```/i, "")
-        .replace(/```$/i, "")
-        .trim();
-
+    cleaned = cleaned
+      .replace(/^```json/i, "")
+      .replace(/^```/i, "")
+      .replace(/```$/i, "")
+      .trim();
   }
 
+  const firstBrace = cleaned.indexOf("{");
+  const lastBrace = cleaned.lastIndexOf("}");
 
-  const firstBrace =
-    cleaned.indexOf("{");
-
-
-  const lastBrace =
-    cleaned.lastIndexOf("}");
-
-
-  if (
-    firstBrace !== -1 &&
-    lastBrace !== -1 &&
-    lastBrace > firstBrace
-  ) {
-
-    cleaned =
-      cleaned.substring(
-        firstBrace,
-        lastBrace + 1
-      );
-
+  if (firstBrace !== -1 && lastBrace !== -1) {
+    cleaned = cleaned.substring(
+      firstBrace,
+      lastBrace + 1
+    );
   }
-
 
   return JSON.parse(cleaned);
-
 }
 
 
-/* =========================================================
-   ANSWER EVALUATION
-========================================================= */
+/* =========================
+   API
+========================= */
 
-async function evaluateWithAI(
-  question,
-  answer
-) {
+async function callAI(messages) {
+
+  const response = await fetch("/api/chat", {
+
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json"
+    },
+
+    body: JSON.stringify({
+      messages
+    })
+
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data?.error || "AI request failed"
+    );
+  }
+
+  return data?.choices?.[0]?.message?.content || "";
+}
+
+
+/* =========================
+   AI QUESTION GENERATION
+========================= */
+
+async function generateInterviewQuestions() {
 
   const systemPrompt = `
+You are the interview-question generation engine for VELLEI,
+an AI Mock Interview Platform.
 
-You are an expert technical interview evaluator.
+Generate a realistic technical interview based ONLY on the
+candidate's supplied job role, experience level, and job description.
 
-Evaluate the candidate answer using this rubric:
+The interview should contain exactly 5 main questions.
 
-Relevance: 15%
-Technical Correctness: 25%
-Depth and Reasoning: 20%
-Evidence and Examples: 15%
-Problem Solving: 15%
-Communication: 10%
+Question progression:
 
-Candidate context may include:
-- candidate name
-- target role
-- experience level
-- job description
+1. Background / experience relevant to the role
+2. Core technical knowledge
+3. Practical implementation
+4. Problem solving / troubleshooting
+5. Advanced or role-specific scenario
 
-Use that context when relevant.
+Questions must be appropriate for the candidate's experience level.
+
+Avoid generic questions when the job description contains
+specific technologies or responsibilities.
+
+Use the job description to identify the most important skills.
+
+Do not ask questions unrelated to the role.
 
 Return ONLY valid JSON.
 
-Use exactly:
+Required format:
 
 {
-  "relevance": 0,
-  "correctness": 0,
-  "depth": 0,
-  "evidence": 0,
-  "problem_solving": 0,
-  "communication": 0,
-  "overall_score": 0,
-  "needs_followup": true,
-  "followup_reason": "",
-  "strengths": [],
-  "gaps": [],
-  "evidence_points": []
+  "questions": [
+    {
+      "question": "",
+      "competency": "",
+      "type": ""
+    }
+  ]
 }
 
-Each category must be 0 to 100.
-
-overall_score should reflect:
-
-relevance * 0.15
-+
-correctness * 0.25
-+
-depth * 0.20
-+
-evidence * 0.15
-+
-problem_solving * 0.15
-+
-communication * 0.10
-
-Do not invent experience, technologies,
-achievements, metrics, or project details.
-
-If the answer is vague or lacks useful evidence,
-a follow-up may be needed.
-
+The "type" must be one of:
+"experience",
+"technical",
+"implementation",
+"problem-solving",
+"scenario".
 `;
 
-
-  const context = `
-
+  const userPrompt = `
 Candidate:
 ${state.candidateName}
 
@@ -1362,48 +594,427 @@ ${state.experienceLevel}
 Job Description:
 ${state.jobDescription || "Not provided"}
 
+Generate exactly 5 personalized interview questions.
 `;
 
+  const content = await callAI([
+    {
+      role: "system",
+      content: systemPrompt
+    },
+    {
+      role: "user",
+      content: userPrompt
+    }
+  ]);
 
-  const userPrompt = `
+  const result = cleanJSON(content);
 
-${context}
+  if (
+    !result.questions ||
+    !Array.isArray(result.questions) ||
+    result.questions.length !== 5
+  ) {
+    throw new Error(
+      "AI did not generate exactly 5 questions."
+    );
+  }
 
-Interview Question:
-${question}
-
-Candidate Answer:
-${answer}
-
-Evaluate the answer objectively.
-
-`;
-
-
-  const response =
-    await callGroq([
-
-      {
-        role: "system",
-        content: systemPrompt
-      },
-
-      {
-        role: "user",
-        content: userPrompt
-      }
-
-    ]);
+  return result.questions;
+}
 
 
-  return cleanJSON(response);
+/* =========================
+   START INTERVIEW
+========================= */
+
+async function startInterview() {
+
+  const candidateName =
+    document.getElementById("candidateName").value.trim();
+
+  const role =
+    document.getElementById("role").value;
+
+  const experienceLevel =
+    document.getElementById("experienceLevel").value;
+
+  const jobDescription =
+    document.getElementById("jobDescription").value.trim();
+
+
+  if (!candidateName) {
+    showSetupError("Please enter candidate name.");
+    return;
+  }
+
+  if (!role) {
+    showSetupError("Please select a job role.");
+    return;
+  }
+
+  if (!experienceLevel) {
+    showSetupError("Please select experience level.");
+    return;
+  }
+
+
+  state = {
+
+    candidateName,
+    role,
+    experienceLevel,
+    jobDescription,
+
+    currentQuestion: 0,
+
+    questions: [],
+    answers: [],
+    evaluations: [],
+
+    followupActive: false,
+    followupQuestion: "",
+    originalQuestion: null
+
+  };
+
+
+  hide("setupError");
+
+  document.getElementById("startButton").disabled = true;
+
+  show("setupLoading");
+
+
+  try {
+
+    state.questions =
+      await generateInterviewQuestions();
+
+    saveSession();
+
+    hide("setupScreen");
+    show("interviewScreen");
+
+    renderInterview();
+
+  } catch (error) {
+
+    showSetupError(
+      "Could not generate AI interview: " +
+      error.message
+    );
+
+    document.getElementById("startButton").disabled = false;
+
+  } finally {
+
+    hide("setupLoading");
+
+  }
+}
+
+
+function showSetupError(message) {
+
+  const box =
+    document.getElementById("setupError");
+
+  box.className = "error";
+  box.textContent = message;
+}
+
+
+function showAnswerError(message) {
+
+  const box =
+    document.getElementById("answerError");
+
+  box.className = "error";
+  box.textContent = message;
+}
+
+
+/* =========================
+   RENDER INTERVIEW
+========================= */
+
+function renderInterview() {
+
+  const q =
+    state.questions[state.currentQuestion];
+
+  if (!q) {
+    finishInterview();
+    return;
+  }
+
+
+  document.getElementById("displayCandidate")
+    .textContent = state.candidateName;
+
+  document.getElementById("displayRole")
+    .textContent = state.role;
+
+  document.getElementById("displayExperience")
+    .textContent = state.experienceLevel;
+
+
+  document.getElementById("progressText")
+    .textContent =
+      `Question ${state.currentQuestion + 1} of ${state.questions.length}`;
+
+
+  document.getElementById("competencyBadge")
+    .textContent =
+      q.competency || "General";
+
+  document.getElementById("questionTypeBadge")
+    .textContent =
+      q.type || "technical";
+
+
+  document.getElementById("questionText")
+    .textContent =
+      state.followupActive
+        ? state.followupQuestion
+        : q.question;
+
+
+  document.getElementById("answerInput").value = "";
+
+  document.getElementById("answerInput").focus();
 
 }
 
 
-/* =========================================================
-   FOLLOW-UP GENERATION
-========================================================= */
+/* =========================
+   ANSWER SUBMISSION
+========================= */
+
+async function submitAnswer() {
+
+  const answer =
+    document.getElementById("answerInput")
+      .value.trim();
+
+
+  if (!answer) {
+
+    showAnswerError(
+      "Please enter an answer before submitting."
+    );
+
+    return;
+  }
+
+
+  document.getElementById("submitAnswerButton")
+    .disabled = true;
+
+  hide("answerError");
+
+  show("answerLoading");
+
+
+  try {
+
+    const question =
+      state.followupActive
+        ? state.followupQuestion
+        : state.questions[state.currentQuestion].question;
+
+
+    const evaluation =
+      await evaluateWithAI(
+        question,
+        answer
+      );
+
+
+    state.answers.push({
+      question,
+      answer,
+      isFollowup: state.followupActive
+    });
+
+
+    state.evaluations.push(evaluation);
+
+
+    /*
+      After a main question, the AI can decide whether
+      a targeted follow-up is useful.
+    */
+
+    if (!state.followupActive) {
+
+      const followup =
+        await generateFollowup(
+          question,
+          answer,
+          evaluation
+        );
+
+
+      if (
+        followup &&
+        followup.shouldFollowUp === true &&
+        followup.question
+      ) {
+
+        state.originalQuestion = question;
+        state.followupQuestion =
+          followup.question;
+        state.followupActive = true;
+
+        saveSession();
+
+        hide("answerLoading");
+
+        document.getElementById("submitAnswerButton")
+          .disabled = false;
+
+        renderInterview();
+
+        return;
+      }
+    }
+
+
+    /*
+      Main question or follow-up completed.
+    */
+
+    state.followupActive = false;
+    state.followupQuestion = "";
+    state.originalQuestion = null;
+
+    state.currentQuestion++;
+
+    saveSession();
+
+
+    if (
+      state.currentQuestion >=
+      state.questions.length
+    ) {
+
+      await finishInterview();
+
+    } else {
+
+      hide("answerLoading");
+
+      document.getElementById("submitAnswerButton")
+        .disabled = false;
+
+      renderInterview();
+
+    }
+
+  } catch (error) {
+
+    hide("answerLoading");
+
+    document.getElementById("submitAnswerButton")
+      .disabled = false;
+
+    showAnswerError(
+      "AI error: " + error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   AI EVALUATION
+========================= */
+
+async function evaluateWithAI(
+  question,
+  answer
+) {
+
+  const systemPrompt = `
+You are the answer evaluation engine for VELLEI.
+
+Evaluate the candidate's answer using ONLY the supplied answer.
+
+Do not invent technologies, projects, metrics,
+achievements, experience, or evidence.
+
+Score these six dimensions from 0 to 100:
+
+Relevance
+Technical Correctness
+Depth / Reasoning
+Evidence / Examples
+Problem Solving
+Communication
+
+Return ONLY valid JSON.
+
+Required format:
+
+{
+  "relevance": 0,
+  "technicalCorrectness": 0,
+  "depthReasoning": 0,
+  "evidenceExamples": 0,
+  "problemSolving": 0,
+  "communication": 0,
+  "overallScore": 0,
+  "strengths": [],
+  "gaps": [],
+  "evidence": "",
+  "feedback": ""
+}
+`;
+
+  const userPrompt = `
+Candidate:
+${state.candidateName}
+
+Role:
+${state.role}
+
+Experience Level:
+${state.experienceLevel}
+
+Job Description:
+${state.jobDescription || "Not provided"}
+
+Question:
+${question}
+
+Candidate Answer:
+${answer}
+`;
+
+
+  const content =
+    await callAI([
+      {
+        role: "system",
+        content: systemPrompt
+      },
+      {
+        role: "user",
+        content: userPrompt
+      }
+    ]);
+
+
+  return cleanJSON(content);
+}
+
+
+/* =========================
+   AI FOLLOW-UP
+========================= */
 
 async function generateFollowup(
   question,
@@ -1412,39 +1023,43 @@ async function generateFollowup(
 ) {
 
   const systemPrompt = `
+You are the adaptive follow-up engine for VELLEI.
 
-You are an adaptive technical interviewer.
+Decide whether the candidate's answer needs ONE
+useful follow-up question.
 
-Generate ONE concise follow-up question.
+A follow-up is useful when the answer:
+- lacks concrete evidence
+- is too shallow
+- misses important technical detail
+- needs clarification
+- would benefit from a practical example
 
-The question must be directly connected to:
-- the original interview question
-- the candidate's answer
-- the evaluation
+Do NOT generate a follow-up when the answer is already
+sufficiently detailed.
 
-Focus on the biggest missing area:
-- concrete example
-- implementation detail
-- technical reasoning
-- trade-off
-- measurable result
-- architecture
-- tool/framework choice
+The follow-up must relate directly to the previous question
+and answer.
 
-Do not ask an unrelated question.
+Return ONLY valid JSON.
 
-Return ONLY the question.
+Format:
 
+{
+  "shouldFollowUp": true,
+  "question": ""
+}
 `;
 
-
   const userPrompt = `
-
-Candidate Role:
+Role:
 ${state.role}
 
 Experience Level:
 ${state.experienceLevel}
+
+Job Description:
+${state.jobDescription || "Not provided"}
 
 Original Question:
 ${question}
@@ -1454,422 +1069,99 @@ ${answer}
 
 Evaluation:
 ${JSON.stringify(evaluation)}
-
-Generate one useful adaptive follow-up question.
-
 `;
 
 
-  return await callGroq([
+  const content =
+    await callAI([
+      {
+        role: "system",
+        content: systemPrompt
+      },
+      {
+        role: "user",
+        content: userPrompt
+      }
+    ]);
 
-    {
-      role: "system",
-      content: systemPrompt
-    },
 
-    {
-      role: "user",
-      content: userPrompt
-    }
-
-  ]);
-
+  return cleanJSON(content);
 }
 
 
-/* =========================================================
-   SUBMIT ANSWER
-========================================================= */
+/* =========================
+   FINISH INTERVIEW
+========================= */
 
-async function submitAnswer() {
+async function finishInterview() {
 
-  const answer =
-    document
-      .getElementById("answer")
-      .value
-      .trim();
+  hide("answerLoading");
+
+  show("answerLoading");
+
+  document.getElementById("answerLoading")
+    .textContent =
+      "AI is generating your personalized report...";
 
 
-  if (!answer) {
+  try {
 
-    alert("Please enter an answer.");
+    const report =
+      await generateReport();
+
+    renderReport(report);
+
+    hide("interviewScreen");
+    show("reportScreen");
+
+    clearSession();
+
+  } catch (error) {
+
+    hide("answerLoading");
+
+    showAnswerError(
+      "Report generation failed: " +
+      error.message
+    );
 
     return;
 
   }
 
-
-  const button =
-    document.getElementById(
-      "submitButton"
-    );
-
-
-  button.disabled = true;
-
-
-  document
-    .getElementById("status")
-    .textContent =
-      "AI is evaluating your answer...";
-
-
-  try {
-
-    /* FOLLOW-UP */
-
-    if (state.followupActive) {
-
-      const evaluation =
-        await evaluateWithAI(
-          state.followupQuestion,
-          answer
-        );
-
-
-      state.answers.push({
-
-        question:
-          state.followupQuestion,
-
-        answer,
-
-        isFollowup: true
-
-      });
-
-
-      state.evaluations.push({
-
-        ...evaluation,
-
-        question:
-          state.followupQuestion,
-
-        competency:
-          state.originalQuestion?.competency ||
-          "Follow-up",
-
-        type:
-          "Adaptive Follow-up",
-
-        isFollowup: true
-
-      });
-
-
-      state.followupActive = false;
-
-      state.followupQuestion = "";
-
-      state.originalQuestion = null;
-
-
-      state.currentQuestion++;
-
-
-      saveSession();
-
-
-      if (
-        state.currentQuestion >=
-        state.questions.length
-      ) {
-
-        await generateReport();
-
-      } else {
-
-        renderQuestion();
-
-      }
-
-
-      return;
-
-    }
-
-
-    /* MAIN QUESTION */
-
-    const question =
-      state.questions[
-        state.currentQuestion
-      ];
-
-
-    const evaluation =
-      await evaluateWithAI(
-        question.question,
-        answer
-      );
-
-
-    state.answers.push({
-
-      question:
-        question.question,
-
-      answer,
-
-      isFollowup: false
-
-    });
-
-
-    state.evaluations.push({
-
-      ...evaluation,
-
-      question:
-        question.question,
-
-      competency:
-        question.competency,
-
-      type:
-        question.type,
-
-      isFollowup: false
-
-    });
-
-
-    if (evaluation.needs_followup) {
-
-      const followup =
-        await generateFollowup(
-          question.question,
-          answer,
-          evaluation
-        );
-
-
-      state.followupActive = true;
-
-      state.followupQuestion =
-        followup;
-
-      state.originalQuestion =
-        question;
-
-
-      saveSession();
-
-      renderFollowup();
-
-    } else {
-
-      state.currentQuestion++;
-
-      saveSession();
-
-
-      if (
-        state.currentQuestion >=
-        state.questions.length
-      ) {
-
-        await generateReport();
-
-      } else {
-
-        renderQuestion();
-
-      }
-
-    }
-
-  } catch (error) {
-
-    console.error(error);
-
-
-    document
-      .getElementById("status")
-      .textContent =
-        "Error: " + error.message;
-
-
-    button.disabled = false;
-
-  }
+  hide("answerLoading");
 
 }
 
 
-/* =========================================================
-   LOCAL SCORE
-========================================================= */
-
-function calculateLocalScore() {
-
-  if (!state.evaluations.length) {
-    return 0;
-  }
-
-
-  const total =
-    state.evaluations.reduce(
-      (sum, item) =>
-        sum +
-        Number(
-          item.overall_score || 0
-        ),
-      0
-    );
-
-
-  return Math.round(
-    total /
-    state.evaluations.length
-  );
-
-}
-
-
-/* =========================================================
-   CATEGORY SCORES
-========================================================= */
-
-function calculateCategoryScores() {
-
-  const categories = [
-
-    "relevance",
-
-    "correctness",
-
-    "depth",
-
-    "evidence",
-
-    "problem_solving",
-
-    "communication"
-
-  ];
-
-
-  const result = {};
-
-
-  for (
-    const category of categories
-  ) {
-
-    const values =
-      state.evaluations
-
-        .map(
-          item =>
-            Number(
-              item[category] || 0
-            )
-        )
-
-        .filter(
-          value =>
-            !Number.isNaN(value)
-        );
-
-
-    result[category] =
-      values.length
-        ? Math.round(
-            values.reduce(
-              (a, b) => a + b,
-              0
-            ) /
-            values.length
-          )
-        : 0;
-
-  }
-
-
-  return result;
-
-}
-
-
-/* =========================================================
-   FINAL AI REPORT
-========================================================= */
+/* =========================
+   AI FINAL REPORT
+========================= */
 
 async function generateReport() {
 
-  showScreen("reportScreen");
-
-
-  document
-    .getElementById("overallScore")
-    .textContent =
-      "Generating...";
-
-
-  document
-    .getElementById("summary")
-    .innerHTML =
-      `
-        <div class="loading">
-          Generating personalized AI report...
-        </div>
-      `;
-
-
-  const interviewData = {
-
-    candidateName:
-      state.candidateName,
-
-    role:
-      state.role,
-
-    experienceLevel:
-      state.experienceLevel,
-
-    jobDescription:
-      state.jobDescription,
-
-    questions:
-      state.questions,
-
-    answers:
-      state.answers,
-
-    evaluations:
-      state.evaluations
-
-  };
-
-
   const systemPrompt = `
+You are the final diagnostic report engine for VELLEI.
 
-You are an expert interview-report analyst.
+Analyze the complete interview.
 
-Create a detailed evidence-based final interview report.
-
-Use ONLY the supplied:
-- candidate context
+The report MUST be based only on:
+- candidate information
 - job description
 - interview questions
 - candidate answers
-- evaluations
+- AI evaluations
 
-Do not invent:
-- experience
-- technologies
-- achievements
-- metrics
-- projects
-- employers
-- responsibilities
+Do not invent experience, skills, technologies,
+achievements, metrics, or projects.
 
-If a skill was not sufficiently tested,
-say that the interview did not provide enough evidence.
+Identify strengths and skill gaps based on evidence.
 
-Return ONLY valid JSON:
+Recommendations must be personalized to the observed gaps.
+
+Return ONLY valid JSON.
+
+Required format:
 
 {
   "overall_score": 0,
@@ -1893,739 +1185,303 @@ Return ONLY valid JSON:
   ],
   "learning_priorities": []
 }
-
-severity must be:
-high, medium, or low.
-
-priority must be:
-high, medium, or low.
-
-The report should distinguish between:
-- demonstrated knowledge
-- partially demonstrated knowledge
-- insufficient evidence
-
-The overall score should reflect
-the supplied evaluation scores.
-
-When a job description is provided,
-identify gaps relative to the stated role requirements,
-but do not claim a candidate lacks a skill merely because
-it was not demonstrated in one question.
-
 `;
-
 
   const userPrompt = `
+Candidate:
+${state.candidateName}
 
-Generate the final report for this interview:
+Role:
+${state.role}
 
-${JSON.stringify(
-  interviewData
-)}
+Experience Level:
+${state.experienceLevel}
 
+Job Description:
+${state.jobDescription || "Not provided"}
+
+Questions:
+${JSON.stringify(state.questions)}
+
+Answers:
+${JSON.stringify(state.answers)}
+
+Evaluations:
+${JSON.stringify(state.evaluations)}
 `;
 
 
-  try {
-
-    const response =
-      await callGroq([
-
-        {
-          role: "system",
-          content: systemPrompt
-        },
-
-        {
-          role: "user",
-          content: userPrompt
-        }
-
-      ]);
+  const content =
+    await callAI([
+      {
+        role: "system",
+        content: systemPrompt
+      },
+      {
+        role: "user",
+        content: userPrompt
+      }
+    ]);
 
 
-    const report =
-      cleanJSON(response);
-
-
-    renderAIReport(report);
-
-  } catch (error) {
-
-    console.error(error);
-
-    renderFallbackReport();
-
-  }
-
+  return cleanJSON(content);
 }
 
 
-/* =========================================================
-   AI REPORT RENDER
-========================================================= */
+/* =========================
+   REPORT RENDERING
+========================= */
 
-function renderAIReport(report) {
+function renderReport(report) {
 
-  const localScore =
-    calculateLocalScore();
-
-
-  const aiScore =
-    Number(
-      report.overall_score
-    );
-
-
-  const finalScore =
-    Number.isFinite(aiScore)
-      ? aiScore
-      : localScore;
-
-
-  document
-    .getElementById("overallScore")
+  document.getElementById("reportCandidate")
     .textContent =
-      `${finalScore}/100`;
+      state.candidateName;
+
+  document.getElementById("reportRole")
+    .textContent =
+      state.role;
+
+  document.getElementById("reportExperience")
+    .textContent =
+      state.experienceLevel;
 
 
-  document
-    .getElementById("candidateReportInfo")
-    .innerHTML =
-      `
-        <p>
-          <strong>Candidate:</strong>
-          ${escapeHTML(state.candidateName)}
-        </p>
-
-        <p>
-          <strong>Role:</strong>
-          ${escapeHTML(state.role)}
-        </p>
-
-        <p>
-          <strong>Experience:</strong>
-          ${escapeHTML(state.experienceLevel)}
-        </p>
-      `;
+  document.getElementById("overallScore")
+    .textContent =
+      `${report.overall_score || 0}/100`;
 
 
-  document
-    .getElementById("summary")
-    .innerHTML =
-      `
-        <p>
-          ${escapeHTML(
-            report.summary ||
-            "Interview completed successfully."
-          )}
-        </p>
-      `;
+  document.getElementById("reportSummary")
+    .textContent =
+      report.summary || "No summary available.";
 
 
-  renderScoreBreakdown();
-
-
-  renderStringList(
+  renderList(
     "strengths",
     report.strengths,
-    "No specific strengths were identified."
+    "No major strengths identified."
   );
 
 
-  renderGapList(
+  renderSkillGaps(
     report.skill_gaps
   );
 
 
-  renderStringList(
+  renderList(
     "evidence",
     report.evidence,
-    "No additional evidence points were identified."
+    "No specific evidence recorded."
   );
 
 
-  renderRecommendationList(
+  renderRecommendations(
     report.recommendations
   );
 
 
-  renderStringList(
+  renderList(
     "learningPriorities",
     report.learning_priorities,
-    "No learning priorities were identified."
+    "No learning priorities generated."
   );
 
 
-  document
-    .getElementById("interviewSummary")
-    .innerHTML =
-      `
-        <p>
-          <strong>Role:</strong>
-          ${escapeHTML(state.role)}
-        </p>
+  renderPerformanceBreakdown();
 
-        <p>
-          <strong>Experience Level:</strong>
-          ${escapeHTML(state.experienceLevel)}
-        </p>
-
-        <p>
-          <strong>Main Questions:</strong>
-          ${state.questions.length}
-        </p>
-
-        <p>
-          <strong>Total Answered Items:</strong>
-          ${state.answers.length}
-        </p>
-
-        <p>
-          <strong>Evaluated Items:</strong>
-          ${state.evaluations.length}
-        </p>
-
-        <p>
-          <strong>Job Description Used:</strong>
-          ${state.jobDescription ? "Yes" : "No"}
-        </p>
-      `;
-
+  renderInterviewSummary();
 
   renderTranscript();
-
-
-  localStorage.removeItem(
-    STORAGE_KEY
-  );
 
 }
 
 
-/* =========================================================
-   FALLBACK REPORT
-========================================================= */
+function renderList(
+  elementId,
+  items,
+  emptyText
+) {
 
-function renderFallbackReport() {
+  const container =
+    document.getElementById(elementId);
 
-  const score =
-    calculateLocalScore();
-
-
-  document
-    .getElementById("overallScore")
-    .textContent =
-      `${score}/100`;
+  container.innerHTML = "";
 
 
-  document
-    .getElementById("candidateReportInfo")
-    .innerHTML =
-      `
-        <p>
-          <strong>Candidate:</strong>
-          ${escapeHTML(state.candidateName)}
-        </p>
+  if (!Array.isArray(items) || items.length === 0) {
 
-        <p>
-          <strong>Role:</strong>
-          ${escapeHTML(state.role)}
-        </p>
+    container.innerHTML =
+      `<div class="report-item">${escapeHTML(emptyText)}</div>`;
 
-        <p>
-          <strong>Experience:</strong>
-          ${escapeHTML(state.experienceLevel)}
-        </p>
-      `;
+    return;
+  }
 
 
-  document
-    .getElementById("summary")
-    .innerHTML =
-      `
-        <p>
-          The AI report could not be generated.
-          The report below uses the available
-          interview evaluation data.
-        </p>
-      `;
+  items.forEach(item => {
 
+    const div =
+      document.createElement("div");
 
-  renderScoreBreakdown();
+    div.className = "report-item";
 
+    div.textContent = item;
 
-  const strengths = [];
+    container.appendChild(div);
 
-  const gaps = [];
-
-  const evidence = [];
-
-
-  state.evaluations.forEach(
-    item => {
-
-      if (
-        Array.isArray(item.strengths)
-      ) {
-
-        strengths.push(
-          ...item.strengths
-        );
-
-      }
-
-
-      if (
-        Array.isArray(item.gaps)
-      ) {
-
-        gaps.push(
-          ...item.gaps
-        );
-
-      }
-
-
-      if (
-        Array.isArray(
-          item.evidence_points
-        )
-      ) {
-
-        evidence.push(
-          ...item.evidence_points
-        );
-
-      }
-
-    }
-  );
-
-
-  renderStringList(
-    "strengths",
-    [...new Set(strengths)],
-    "No specific strengths recorded."
-  );
-
-
-  renderStringList(
-    "skillGaps",
-    [...new Set(gaps)],
-    "No specific skill gaps recorded."
-  );
-
-
-  renderStringList(
-    "evidence",
-    [...new Set(evidence)],
-    "No evidence points recorded."
-  );
-
-
-  renderStringList(
-    "recommendations",
-    [
-      "Practice giving concrete technical examples.",
-      "Explain technical reasoning and trade-offs.",
-      "Include measurable outcomes where available."
-    ]
-  );
-
-
-  renderStringList(
-    "learningPriorities",
-    [
-      "Technical depth",
-      "Evidence-based project explanations",
-      "Problem-solving and trade-offs"
-    ]
-  );
-
-
-  document
-    .getElementById("interviewSummary")
-    .innerHTML =
-      `
-        <p>
-          <strong>Role:</strong>
-          ${escapeHTML(state.role)}
-        </p>
-
-        <p>
-          <strong>Experience Level:</strong>
-          ${escapeHTML(state.experienceLevel)}
-        </p>
-
-        <p>
-          <strong>Main Questions:</strong>
-          ${state.questions.length}
-        </p>
-
-        <p>
-          <strong>Total Answered Items:</strong>
-          ${state.answers.length}
-        </p>
-      `;
-
-
-  renderTranscript();
-
-
-  localStorage.removeItem(
-    STORAGE_KEY
-  );
+  });
 
 }
 
 
-/* =========================================================
-   SCORE BREAKDOWN
-========================================================= */
+function renderSkillGaps(gaps) {
 
-function renderScoreBreakdown() {
+  const container =
+    document.getElementById("skillGaps");
 
-  const scores =
-    calculateCategoryScores();
+  container.innerHTML = "";
 
 
-  const labels = {
+  if (!Array.isArray(gaps) || gaps.length === 0) {
 
-    relevance:
-      "Relevance",
+    container.innerHTML =
+      `<div class="report-item">No significant skill gaps identified.</div>`;
 
-    correctness:
-      "Technical Correctness",
+    return;
+  }
 
-    depth:
-      "Depth & Reasoning",
 
-    evidence:
-      "Evidence & Examples",
+  gaps.forEach(gap => {
 
-    problem_solving:
-      "Problem Solving",
+    const div =
+      document.createElement("div");
 
-    communication:
-      "Communication"
+    div.className = "report-item";
+
+    div.innerHTML = `
+      <strong>
+        ${escapeHTML(gap.skill)}
+        — ${escapeHTML(gap.severity)}
+      </strong>
+
+      <div>
+        <b>Evidence:</b>
+        ${escapeHTML(gap.evidence)}
+      </div>
+
+      <div style="margin-top:8px;">
+        <b>Improvement:</b>
+        ${escapeHTML(gap.improvement)}
+      </div>
+    `;
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+function renderRecommendations(
+  recommendations
+) {
+
+  const container =
+    document.getElementById("recommendations");
+
+  container.innerHTML = "";
+
+
+  if (
+    !Array.isArray(recommendations) ||
+    recommendations.length === 0
+  ) {
+
+    container.innerHTML =
+      `<div class="report-item">No personalized recommendations available.</div>`;
+
+    return;
+  }
+
+
+  recommendations.forEach(item => {
+
+    const div =
+      document.createElement("div");
+
+    div.className = "report-item";
+
+    div.innerHTML = `
+      <strong>
+        ${escapeHTML(item.gap)}
+        — ${escapeHTML(item.priority)}
+      </strong>
+
+      <div>
+        ${escapeHTML(item.action)}
+      </div>
+    `;
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+/* =========================
+   PERFORMANCE
+========================= */
+
+function renderPerformanceBreakdown() {
+
+  const container =
+    document.getElementById(
+      "performanceBreakdown"
+    );
+
+  container.innerHTML = "";
+
+
+  if (!state.evaluations.length) {
+
+    container.innerHTML =
+      `<div class="report-item">No evaluation data.</div>`;
+
+    return;
+  }
+
+
+  const totals = {
+
+    relevance: 0,
+
+    technicalCorrectness: 0,
+
+    depthReasoning: 0,
+
+    evidenceExamples: 0,
+
+    problemSolving: 0,
+
+    communication: 0
 
   };
 
 
-  document
-    .getElementById("scoreBreakdown")
-    .innerHTML =
+  state.evaluations.forEach(e => {
 
-      Object.entries(labels)
+    totals.relevance +=
+      Number(e.relevance || 0);
 
-        .map(
-          ([key, label]) => `
+    totals.technicalCorrectness +=
+      Number(e.technicalCorrectness || 0);
 
-            <div class="score-box">
+    totals.depthReasoning +=
+      Number(e.depthReasoning || 0);
 
-              ${escapeHTML(label)}
+    totals.evidenceExamples +=
+      Number(e.evidenceExamples || 0);
 
-              <strong>
-                ${scores[key]}/100
-              </strong>
-
-            </div>
-
-          `
-        )
-
-        .join("");
-
-}
-
-
-/* =========================================================
-   STRING LIST
-========================================================= */
-
-function renderStringList(
-  elementId,
-  items,
-  emptyText = "No information available."
-) {
-
-  const element =
-    document.getElementById(
-      elementId
-    );
-
-
-  if (
-    !Array.isArray(items) ||
-    !items.length
-  ) {
-
-    element.innerHTML =
-      `<p>${escapeHTML(emptyText)}</p>`;
-
-    return;
-
-  }
-
-
-  const cleanedItems =
-    items
-      .filter(Boolean)
-      .filter(
-        (item, index, array) =>
-          array.indexOf(item) === index
-      );
-
-
-  element.innerHTML =
-    `
-      <ul>
-
-        ${cleanedItems
-          .map(
-            item =>
-              `<li>${escapeHTML(item)}</li>`
-          )
-          .join("")}
-
-      </ul>
-    `;
-
-}
-
-
-/* =========================================================
-   SKILL GAPS
-========================================================= */
-
-function renderGapList(gaps) {
-
-  const element =
-    document.getElementById(
-      "skillGaps"
-    );
-
-
-  if (
-    !Array.isArray(gaps) ||
-    !gaps.length
-  ) {
-
-    element.innerHTML =
-      "<p>No specific skill gaps identified.</p>";
-
-    return;
-
-  }
-
-
-  element.innerHTML =
-    gaps
-      .map(
-        gap => `
-
-          <div class="gap">
-
-            <span class="severity">
-              ${escapeHTML(
-                gap.severity ||
-                "medium"
-              )}
-            </span>
-
-            <h4>
-              ${escapeHTML(
-                gap.skill ||
-                "Skill"
-              )}
-            </h4>
-
-            <p>
-              <strong>Evidence:</strong>
-              ${escapeHTML(
-                gap.evidence ||
-                "Not enough evidence."
-              )}
-            </p>
-
-            <p>
-              <strong>Improvement:</strong>
-              ${escapeHTML(
-                gap.improvement ||
-                "Practice and strengthen this area."
-              )}
-            </p>
-
-          </div>
-
-        `
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   RECOMMENDATIONS
-========================================================= */
-
-function renderRecommendationList(
-  recommendations
-) {
-
-  const element =
-    document.getElementById(
-      "recommendations"
-    );
-
-
-  if (
-    !Array.isArray(
-      recommendations
-    ) ||
-    !recommendations.length
-  ) {
-
-    element.innerHTML =
-      "<p>No personalized recommendations available.</p>";
-
-    return;
-
-  }
-
-
-  element.innerHTML =
-    recommendations
-      .map(
-        item => `
-
-          <div class="recommendation">
-
-            <span class="severity">
-              Priority:
-              ${escapeHTML(
-                item.priority ||
-                "medium"
-              )}
-            </span>
-
-            <p>
-              <strong>Gap:</strong>
-              ${escapeHTML(
-                item.gap || ""
-              )}
-            </p>
-
-            <p>
-              <strong>Action:</strong>
-              ${escapeHTML(
-                item.action || ""
-              )}
-            </p>
-
-          </div>
-
-        `
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   TRANSCRIPT
-========================================================= */
-
-function renderTranscript() {
-
-  const element =
-    document.getElementById(
-      "transcript"
-    );
-
-
-  if (!state.answers.length) {
-
-    element.innerHTML =
-      "<p>No transcript available.</p>";
-
-    return;
-
-  }
-
-
-  element.innerHTML =
-    state.answers
-      .map(
-        (item, index) => `
-
-          <div class="transcript-item">
-
-            <div class="transcript-q">
-
-              ${index + 1}.
-              ${escapeHTML(
-                item.question
-              )}
-
-              ${
-                item.isFollowup
-                  ? " (Adaptive Follow-up)"
-                  : ""
-              }
-
-            </div>
-
-            <div class="transcript-a">
-
-              ${escapeHTML(
-                item.answer
-              )}
-
-            </div>
-
-          </div>
-
-        `
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   START NEW INTERVIEW
-========================================================= */
-
-function startNewInterview() {
-
-  clearSavedSession();
-
-  showScreen(
-    "setupScreen"
-  );
-
-  checkSavedSession();
-
-}
-
-
-/* =========================================================
-   PAGE LOAD
-========================================================= */
-
-window.addEventListener(
-  "load",
-  () => {
-
-    checkSavedSession();
-
-  }
-);
-
-</script>
-
-</body>
-</html>
+    totals.problemSolving
+````
